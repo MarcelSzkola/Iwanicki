@@ -1,0 +1,309 @@
+/* Resetowanie domyślnych stylów */
+body, h1, h2, h3, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Styl nagłówka */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-item {
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  text-decoration: underline;
+}
+
+.dropdown-container {
+  position: relative;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+}
+
+/* Style dla elementów dropdown */
+.dropdown li {
+  padding: 12px 15px;
+  cursor: pointer;
+  color: #000; /* Czarny tekst */
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease-in-out; /* Efekt powiększenia */
+}
+
+/* Większa przerwa między elementami */
+.dropdown li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Styl linków w dropdownie */
+.dropdown li a {
+  color: #000; /* Czarny tekst */
+  text-decoration: none; /* Brak podkreślenia */
+  display: block; /* Cały element klikalny */
+  width: 100%;
+}
+
+/* Efekt hover */
+.dropdown li:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05); /* Lekkie powiększenie */
+}
+
+.right-section {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  padding: 5px;
+}
+
+.search-box input {
+  border: none;
+  outline: none;
+}
+
+.icon {
+  cursor: pointer;
+}
+
+/* Zdefiniuj wygląd linku, żeby wyglądał jak tekst */
+.logo-link {
+  text-decoration: none;  /* Usuwa podkreślenie linku */
+  color: inherit;
+}
+
+.logo {
+  font-size: 2rem; /* Możesz dostosować wielkość czcionki */
+  font-weight: bold;
+}
+
+.featured-image {
+  position: relative;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.background-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.slideshow-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 20px;
+  position: relative;
+  gap: 20px;
+}
+
+.slideshow-image {
+  width: 400px;
+  height: 300px;
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+  border-radius: 10px;
+}
+
+.slideshow-text {
+  width: 300px;
+  font-size: 24px;
+  font-weight: bold;
+  text-align: left;
+  background-color: rgba(255, 255, 255, 0.7);
+  padding: 10px;
+  border-radius: 5px;
+}
+
+/* Resetowanie domyślnych stylów */
+body, h1, h2, h3, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #000;
+}
+
+/* Styl nagłówka */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ddd;
+  position: relative;
+  z-index: 1000;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 15px;
+}
+
+.nav-item {
+  font-size: 16px;
+  color: #000;
+  cursor: pointer;
+}
+
+.nav-item:hover {
+  text-decoration: underline;
+}
+
+.dropdown-container {
+  position: relative;
+  z-index: 1100;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  color: #000;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+/* Dropdown menu */
+.dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  border: 1px solid #ddd;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  z-index: 1200; /* Ustawione wyżej niż zdjęcie */
+}
+
+/* Style dla elementów dropdown */
+.dropdown li {
+  padding: 12px 15px;
+  cursor: pointer;
+  color: #000;
+  font-size: 14px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s ease-in-out;
+}
+
+/* Większa przerwa między elementami */
+.dropdown li:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+/* Styl linków w dropdownie */
+.dropdown li a {
+  color: #000;
+  text-decoration: none;
+  display: block;
+  width: 100%;
+}
+
+/* Efekt hover */
+.dropdown li:hover {
+  background-color: #f0f0f0;
+  transform: scale(1.05);
+}
+
+.featured-image {
+  position: relative;
+  text-align: center;
+  margin-top: 0px;
+  z-index: 1;
+}
+
+.background-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.news-ticker {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: red;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  text-transform: uppercase;
+  overflow: hidden;
+  white-space: nowrap;
+  z-index: 900;
+}
+
+.news-ticker p {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker 10s linear infinite;
+}
+
+@keyframes ticker {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}
