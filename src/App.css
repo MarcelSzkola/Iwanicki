@@ -238,6 +238,7 @@ body {
 .product-card {
   position: relative;
   transition: transform 0.3s ease;
+  height: 100%;
 }
 
 .product-card:hover {
@@ -253,7 +254,7 @@ body {
   background-position: center;
 }
 .product-image-placeholder {
-  width: 100%;
+  width: 377px;
   height: 400px;
   background-color: #db3333;
   margin-bottom: 20px;
@@ -363,4 +364,28 @@ body {
   .collection-header h1 {
     font-size: 36px;
   }
+}
+
+.size-selector {
+  margin: 10px 0;
+}
+
+.size-selector label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.size-selector select {
+  width: 100%;
+  padding: 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
 }
