@@ -575,19 +575,85 @@ const Collectionen = () => {
       [productId]: size
     }));
   };
+    // Generowanie rozmiarów od 36 do 46
+    const sizes = ['XS','S','M','L','XL'];
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
+    const products = [
+      {
+        id: 1,
+        name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
+        img : ChiefKeef1,
+        price: '499 PLN',
+        description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+      },
+      {
+        id: 2,
+        name: 'DOPEMAGAZINE x CHIEF KEEF T-SHIRT',
+        img : ChiefKeef2,
+        price: '299 PLN',
+        description: 'Limitowana edycja koszulki z kolaboracja z Chief Keef'
+      },
+      {
+        id: 3,
+        name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
+        img : ChiefKeef3,
+        price: '249 PLN',
+        description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+      },
+      {
+        id: 4,
+        name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+        img : ChiefKeef4,
+        price: '549 PLN',
+        description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+      },
+      {
+      id: 5,
+      name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+      img : ChiefKeef4,
+      price: '549 PLN',
+      description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+      },
+      {
+      id: 6,
+      name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+      img : ChiefKeef4,
+      price: '549 PLN',
+      description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+       },
+       {
+       id: 7,
+       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+       img : ChiefKeef4,
+       price: '549 PLN',
+       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+       },
+       {
+       id: 8,
+       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+       img : ChiefKeef4,
+       price: '549 PLN',
+       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+       },
+       {
+       id: 9,
+       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+       img : ChiefKeef4,
+       price: '549 PLN',
+       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+       }
+    ];
+
     return (
+
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/en/collection"><p className='collection-categories2'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -596,6 +662,35 @@ const Collectionen = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -619,31 +714,6 @@ const Collectionen = () => {
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
