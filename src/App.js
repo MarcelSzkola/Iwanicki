@@ -23,7 +23,7 @@ import model8 from './model11.jpg';
 
 
 
-const HeroBanneren = () => {
+const Mainsiteen = () => {
     const data = new Date();
     const [selectedSizes, setSelectedSizes] = useState({});
     const [currentSlide, setCurrentSlide] = useState(0);
@@ -46,20 +46,7 @@ const HeroBanneren = () => {
       return () => clearInterval(interval);
     }, [models.length]);
   
-    // ... reszta istniejącego kodu
-    const handleSizeChange = (productId, size) => {
-      setSelectedSizes(prev => ({
-        ...prev,
-        [productId]: size
-      }));
-    };
   
-    const products = [
-      // ... (pozostawiam istniejące produkty bez zmian)
-    ];
-  
-    // Generowanie rozmiarów od 36 do 46
-    const sizes = Array.from({length: 11}, (_, i) => 36 + i);
       return (
         <div className="chief-keef-page">
           <div className="collection-header">
@@ -93,44 +80,18 @@ const HeroBanneren = () => {
     </ul>
   </div>
   <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-              <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-              <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+              <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+              <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
               <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
             </div>
           </div>
           <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
           <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-        
-        <div className="products-grid">
-        {products.map(product => (
-            <div key={product.id} className="product-card">
-              <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-              <h3>{product.name}</h3>
-              <p className="product-description">{product.description}</p>
-              <p className="product-price">{product.price}</p>
-              
-              {/* Selektor rozmiaru */}
-              <div className="size-selector">
-                <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-                <select 
-                  id={`size-${product.id}`}
-                  value={selectedSizes[product.id] || ''}
-                  onChange={(e) => handleSizeChange(product.id, e.target.value)}
-                >
-                  <option value="">Wybierz rozmiar</option>
-                  {sizes.map(size => (
-                    <option key={size} value={size}>{size}</option>
-                  ))}
-                </select>
-              </div>
-            </div>
-          ))}
-        </div>
     </div>
   );
 };
 
-const HeroBannerpl = () => {
+const Mainsitepl = () => {
   const data = new Date();
   const [selectedSizes, setSelectedSizes] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
@@ -151,20 +112,7 @@ const HeroBannerpl = () => {
     return () => clearInterval(interval);
   }, [models.length]);
 
-  // ... reszta istniejącego kodu
-  const handleSizeChange = (productId, size) => {
-    setSelectedSizes(prev => ({
-      ...prev,
-      [productId]: size
-    }));
-  };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
@@ -199,39 +147,14 @@ DopeMagazine to coś więcej niż tylko sklep z ciuchami — to historia zakorze
   </ul>
 </div>
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
   </div>
 );
 };
@@ -344,8 +267,8 @@ We retain data for the duration necessary to achieve the processing purposes, an
 </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-          <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-          <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+          <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+          <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
           <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
         </div>
       </div>
@@ -462,8 +385,8 @@ Dane są przechowywane przez okres niezbędny do realizacji celów, a następnie
   </ul>
 </div>
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">KOLEKCJA CHIEF KEEF</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
@@ -520,7 +443,7 @@ const ChiefKeefCollection = () => {
   return (
     <div className="chief-keef-page">
       <div className="collection-header">
-        <h1>DOPEMAGAZINE X CHIEEF KEEF COLLECTION</h1>
+        <h1>DOPEMAGAZINE X CHIEF KEEF COLLECTION</h1>
         <p className="subtitle">
           Ekskluzywna kolekcja stworzona we współpracy z legendarnym Chief Keef. 
           Każdy element został zaprojektowany z najwyższą dbałością o detal, 
@@ -565,6 +488,125 @@ const ChiefKeefCollection = () => {
   );
 };
 
+const sizes = ['XS','S','M','L','XL'];
+
+const products = [
+  {
+    id: 1,
+    category: 'cap',
+    name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
+    img : ChiefKeef1,
+    price: '499 PLN',
+    description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+  },
+  {
+    id: 2,
+    category: 'jackets',
+    name: 'DOPEMAGAZINE x CHIEF KEEF T-SHIRT',
+    img : ChiefKeef2,
+    price: '299 PLN',
+    description: 'Limitowana edycja koszulki z kolaboracja z Chief Keef'
+  },
+  {
+    id: 3,
+    category: 'hoodies',
+    name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
+    img : ChiefKeef3,
+    price: '249 PLN',
+    description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+  },
+  {
+    id: 4,
+    category: 'tshirts',
+    name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+    img : ChiefKeef4,
+    price: '549 PLN',
+    description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  },
+  {
+  id: 5,
+  category: 'trousers',
+  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+  img : ChiefKeef4,
+  price: '549 PLN',
+  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  },
+  {
+  id: 6,
+  category: 'jeanses',
+  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+  img : ChiefKeef4,
+  price: '549 PLN',
+  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+   },
+   {
+   id: 7,
+   category: 'shoes',
+   name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+   img : ChiefKeef4,
+   price: '549 PLN',
+   description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+   }
+];
+const productspl = [
+  {
+    id: 1,
+    category: 'cap',
+    name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
+    img : ChiefKeef1,
+    price: '499 PLN',
+    description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+  },
+  {
+    id: 2,
+    category: 'jackets',
+    name: 'DOPEMAGAZINE x CHIEF KEEF T-SHIRT',
+    img : ChiefKeef2,
+    price: '299 PLN',
+    description: 'Limitowana edycja koszulki z kolaboracja z Chief Keef'
+  },
+  {
+    id: 3,
+    category: 'hoodies',
+    name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
+    img : ChiefKeef3,
+    price: '249 PLN',
+    description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+  },
+  {
+    id: 4,
+    category: 'tshirts',
+    name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+    img : ChiefKeef4,
+    price: '549 PLN',
+    description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  },
+  {
+  id: 5,
+  category: 'trousers',
+  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+  img : ChiefKeef4,
+  price: '549 PLN',
+  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  },
+  {
+  id: 6,
+  category: 'jeanses',
+  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+  img : ChiefKeef4,
+  price: '549 PLN',
+  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+   },
+   {
+   id: 7,
+   category: 'shoes',
+   name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
+   img : ChiefKeef4,
+   price: '549 PLN',
+   description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+   }
+];
+
 const Collectionen = () => {
   const data = new Date();
   const [selectedSizes, setSelectedSizes] = useState({});
@@ -575,78 +617,8 @@ const Collectionen = () => {
       [productId]: size
     }));
   };
-    // Generowanie rozmiarów od 36 do 46
-    const sizes = ['XS','S','M','L','XL'];
-
-
-    const products = [
-      {
-        id: 1,
-        name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-        img : ChiefKeef1,
-        price: '499 PLN',
-        description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-      },
-      {
-        id: 2,
-        name: 'DOPEMAGAZINE x CHIEF KEEF T-SHIRT',
-        img : ChiefKeef2,
-        price: '299 PLN',
-        description: 'Limitowana edycja koszulki z kolaboracja z Chief Keef'
-      },
-      {
-        id: 3,
-        name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-        img : ChiefKeef3,
-        price: '249 PLN',
-        description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-      },
-      {
-        id: 4,
-        name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-        img : ChiefKeef4,
-        price: '549 PLN',
-        description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-      },
-      {
-      id: 5,
-      name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-      img : ChiefKeef4,
-      price: '549 PLN',
-      description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-      },
-      {
-      id: 6,
-      name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-      img : ChiefKeef4,
-      price: '549 PLN',
-      description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-       },
-       {
-       id: 7,
-       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-       img : ChiefKeef4,
-       price: '549 PLN',
-       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-       },
-       {
-       id: 8,
-       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-       img : ChiefKeef4,
-       price: '549 PLN',
-       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-       },
-       {
-       id: 9,
-       name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-       img : ChiefKeef4,
-       price: '549 PLN',
-       description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-       }
-    ];
 
     return (
-
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
@@ -706,8 +678,8 @@ const Collectionen = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
@@ -729,27 +701,53 @@ const Collectionpl = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
-                <img src={dope} alt='logo' className='logostrony'></img>
+                  <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
+
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories2'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {productspl.map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -757,50 +755,128 @@ const Collectionpl = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
-          </div>
-        ))}
-      </div>
+      
     </div>
   );
 };
 
+const Koszykpl = () => {
+  const data = new Date();
+  const [selectedSizes, setSelectedSizes] = useState({});
+
+  const handleSizeChange = (productId, size) => {
+    setSelectedSizes(prev => ({
+      ...prev,
+      [productId]: size
+    }));
+  };
+
+    return (
+      <div className="chief-keef-page">
+        <div className="collection-header">
+                  <img src={dope} alt='logo' className='logostrony'></img>
+        <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
+/*miejsce na gowna z koszyka*/
+
+
+
+
+
+
+
+
+/*miejsce na gowna z koszyka*/
+          <div className="collection-menu">
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
+            <div className="dropdown-container">
+  <button className="collection-menu-item">
+    <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
+  </button>
+  <ul className="dropdown">
+    <li>
+      <Link to="/en/buycart">
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
+      </Link>
+      </li>
+  </ul>
+</div>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+          </div>
+        </div>
+        <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+      
+    </div>
+  );
+};
+const Koszyken = () => {
+  const data = new Date();
+  const [selectedSizes, setSelectedSizes] = useState({});
+
+  const handleSizeChange = (productId, size) => {
+    setSelectedSizes(prev => ({
+      ...prev,
+      [productId]: size
+    }));
+  };
+
+    return (
+      <div className="chief-keef-page">
+        <div className="collection-header">
+                  <img src={dope} alt='logo' className='logostrony'></img>
+        <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
+        /*miejsce na gowna z koszyka*/
+
+
+
+
+
+
+
+
+/*miejsce na gowna z koszyka*/
+      <div className="collection-menu">
+            <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
+            <div className="dropdown-container">
+  <button className="collection-menu-item">
+    <img src={usaflag} alt="USA flag" className="flag-icon" /> EN <span className="dropdown-arrow">▼</span>
+  </button>
+  <ul className="dropdown">
+    <li>
+      <Link to="/pl/buycart">
+        <img src={plflag} alt="Poland flag" className="flag-icon" /> PL
+      </Link>
+      </li>
+  </ul>
+</div>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
+            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+          </div>
+        </div>
+        <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
+      
+    </div>
+  );
+};
 
 
 /*kategoryczny shit*/
@@ -817,18 +893,13 @@ const Collectionencaps = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories2'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -837,6 +908,35 @@ const Collectionencaps = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'cap').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -852,39 +952,14 @@ const Collectionencaps = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -899,18 +974,13 @@ const Collectionenjackets = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories2'>jackets</p></Link>
@@ -919,6 +989,35 @@ const Collectionenjackets = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'jackets').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -934,39 +1033,14 @@ const Collectionenjackets = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -981,18 +1055,13 @@ const Collectionenhoodies = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -1001,6 +1070,35 @@ const Collectionenhoodies = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'hoodies').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -1016,39 +1114,14 @@ const Collectionenhoodies = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -1063,18 +1136,13 @@ const Collectionentshirts = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -1083,6 +1151,35 @@ const Collectionentshirts = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'tshirts').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -1098,39 +1195,14 @@ const Collectionentshirts = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -1145,18 +1217,13 @@ const Collectionentrousers = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -1165,6 +1232,35 @@ const Collectionentrousers = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories2'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'trousers').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -1180,39 +1276,14 @@ const Collectionentrousers = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -1227,18 +1298,13 @@ const Collectionenjeanses = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -1247,6 +1313,35 @@ const Collectionenjeanses = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories2'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'jeanses').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -1262,39 +1357,14 @@ const Collectionenjeanses = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -1309,18 +1379,13 @@ const Collectionenshoes = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
 
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-
+        <div className="linki">
         <Link to="/en/collection"><p className='collection-categories'>all</p></Link>
        <Link to="/en/collection/capsbeanies"><p className='collection-categories'>caps/beanies</p></Link>
        <Link to="/en/collection/jackets"><p className='collection-categories'>jackets</p></Link>
@@ -1329,6 +1394,35 @@ const Collectionenshoes = () => {
        <Link to="/en/collection/trousers"><p className='collection-categories'>trousers</p></Link>
        <Link to="/en/collection/jeanses"><p className='collection-categories'>jeanses</p></Link>
        <Link to="/en/collection/shoes"><p className='collection-categories2'>shoes</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+        {products.filter(product => product.category === 'shoes').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">ADD TO CART</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">CHOOSE SIZE</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -1344,39 +1438,14 @@ const Collectionenshoes = () => {
   </ul>
 </div>
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF COLLECTION</Link>
-            <Link to="/collection" className="collection-menu-item">BUY CART</Link>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
             <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
-      
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
+  
     </div>
   );
 };
@@ -1393,28 +1462,53 @@ const Collectionplcaps = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories2'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'cap').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1422,45 +1516,20 @@ const Collectionplcaps = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1475,28 +1544,53 @@ const Collectionpljackets = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories2'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'jackets').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1504,45 +1598,20 @@ const Collectionpljackets = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1557,28 +1626,53 @@ const Collectionplhoodies = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories2'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'hoodies').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1586,45 +1680,20 @@ const Collectionplhoodies = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1639,28 +1708,53 @@ const Collectionpltshirts = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories2'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'tshirts').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1668,45 +1762,20 @@ const Collectionpltshirts = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1721,28 +1790,53 @@ const Collectionpltrousers = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories2'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'trousers').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1750,45 +1844,20 @@ const Collectionpltrousers = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1803,28 +1872,53 @@ const Collectionpljeanses = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories2'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories2'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'jeanses').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1832,45 +1926,20 @@ const Collectionpljeanses = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1885,28 +1954,53 @@ const Collectionplshoes = () => {
     }));
   };
 
-  const products = [
-    // ... (pozostawiam istniejące produkty bez zmian)
-  ];
-
-  // Generowanie rozmiarów od 36 do 46
-  const sizes = Array.from({length: 11}, (_, i) => 36 + i);
     return (
       <div className="chief-keef-page">
         <div className="collection-header">
                   <img src={dope} alt='logo' className='logostrony'></img>
         <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
 
+
+<div className="linki">
         <Link to="/pl/collection"><p className='collection-categories'>wszystko</p></Link>
        <Link to="/pl/collection/capsbeanies"><p className='collection-categories'>czapki</p></Link>
        <Link to="/pl/collection/jackets"><p className='collection-categories'>kurtki</p></Link>
        <Link to="/pl/collection/hoodies"><p className='collection-categories'>bluzy</p></Link>
        <Link to="/pl/collection/tshirts"><p className='collection-categories'>koszulki</p></Link>
        <Link to="/pl/collection/trousers"><p className='collection-categories'>dresy</p></Link>
-       <Link to="/pl/collection/jeanses"><p className='collection-categories'>dżinsy</p></Link>
+       <Link to="/pl/collection/jeanses"><p className='collection-categories'>jeansy</p></Link>
        <Link to="/pl/collection/shoes"><p className='collection-categories2'>buty</p></Link>
+       </div>
+       <div className="products">
+       <div className="products-grid">
+       {productspl.filter(product => product.category === 'shoes').map(product => (
+          <div key={product.id} className="product-card">
+            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
+            <h3>{product.name}</h3>
+            <p className="product-description">{product.description}</p>
+            <p className="product-price">{product.price}</p>
+            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            {/* Selektor rozmiaru */}
+            <div className="size-selector">
+              <select 
+                id={`size-${product.id}`}
+                value={selectedSizes[product.id] || ''}
+                onChange={(e) => handleSizeChange(product.id, e.target.value)}
+              >
+                
+                <option value="">WYBIERZ ROZMIAR</option>
+                {sizes.map(size => (
+                  <option key={size} value={size}>{size}</option>
+                ))}
+              </select>
+            </div>
+            
+          </div>
+        ))}
+      </div>
+      </div>
           <div className="collection-menu">
-            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
     <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
@@ -1914,45 +2008,20 @@ const Collectionplshoes = () => {
   <ul className="dropdown">
     <li>
       <Link to="/en/collection">
-        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+        <img src={usaflag} alt="USA flag" className="flag-icon" /> EN
       </Link>
       </li>
   </ul>
 </div>
-            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
-            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item">KOLEKCJA CHIEF KEEF</Link>
-            <Link to="/collection" className="collection-menu-item">KOSZYK</Link>
+<span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
-        <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
-      <div className="products-grid">
-      {products.map(product => (
-          <div key={product.id} className="product-card">
-            <div className="product-image-placeholder"><img id="chieefkeefclothes" src={product.img}></img></div>
-            <h3>{product.name}</h3>
-            <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            
-            {/* Selektor rozmiaru */}
-            <div className="size-selector">
-              <label htmlFor={`size-${product.id}`}>Rozmiar:</label>
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                <option value="">Wybierz rozmiar</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-          </div>
-        ))}
-      </div>
     </div>
   );
 };
@@ -1962,7 +2031,7 @@ const MainContent = () => {
 
   return (
     <div className="app-content">
-      {pathname === '/' && <HeroBanneren />}
+      {pathname === '/' && <Mainsiteen />}
     </div>
   );
 };
@@ -1971,10 +2040,12 @@ const App = () => {
   return (
     <Router>
       <Routes>
-      <Route path="/pl" element={<HeroBannerpl />} />
+      <Route path="/pl" element={<Mainsitepl />} />
         <Route path="/dopemagazinexchiefkeef" element={<ChiefKeefCollection />} />
         <Route path="/en/collection" element={<Collectionen />} />
         <Route path="/pl/collection" element={<Collectionpl />} />
+        <Route path="/en/buycart" element={<Koszyken />} />
+        <Route path="/pl/buycart" element={<Koszykpl />} />
         /*kategoryczny shit*/
         <Route path="/en/collection/capsbeanies" element={<Collectionencaps />} />
         <Route path="/en/collection/hoodies" element={<Collectionenhoodies />} />
