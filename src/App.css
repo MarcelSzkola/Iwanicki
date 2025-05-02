@@ -1,0 +1,787 @@
+/* Resetowanie domyślnych stylów */
+body, h1, h2, h3, p, ul, li, a {
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
+  list-style: none;
+  font-family: 'Helvetica Neue', Arial, sans-serif;
+}
+
+body {
+  background-color: #fff;
+  color: #000;
+  line-height: 1.6;
+}
+
+/* Dodaj te style do pliku App.css */
+/* Dodaj te style do istniejącego CSS */
+.flag-icon {
+  font-family: "Courier New", Courier, monospace;
+  width: 16px;
+  height: 12px;
+  margin-right: 8px;
+  vertical-align: middle;
+  display: inline-block;
+}
+
+.dropdown li .flag-icon {
+  font-family: "Courier New", Courier, monospace;
+  margin-right: 10px;
+}
+
+/* Dla ikon z react-icons */
+.dropdown li svg.flag-icon {
+  font-family: "Courier New", Courier, monospace;
+  width: 16px;
+  height: 16px;
+  color: #666;
+}
+
+.menu-separator {
+  color: #e1e1e1;
+  font-weight: 300;
+  user-select: none;
+}
+
+.dropdown-arrow {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  margin-left: 5px;
+}
+
+/* Poprawki dla dropdown */
+.dropdown-container .dropdown {
+  font-family: "Courier New", Courier, monospace;
+  min-width: 100px;
+  padding: 10px 0;
+}
+
+.dropdown-container .dropdown li {
+  font-family: "Courier New", Courier, monospace;
+  padding: 8px 15px;
+  text-align: center;
+}
+
+.collection-menu {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 30px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #e1e1e1;
+}
+
+.collection-menu-item {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  border: none;
+}
+
+.collection-onas {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000;
+  background-color: #fff;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  right: 0px;
+  position: relative;
+  border: none;
+}
+
+.collection-menu-copyrights {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000000;
+  background-color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+  border: none;
+}
+
+.collection-menu-privacypolicy {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000000;
+  background-color: #fff;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+}
+.czas {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 11px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 70px 0;
+  position: relative;
+  border: none;
+}
+.collection-menu-privacypolicy:hover {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #ff0000;
+  background-color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+  border: none;
+}
+
+.collection-menu-privacy {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000;
+  background-color: #fff;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  margin-top: 0%;
+  position: relative;
+  border: none;
+}
+.linki {
+display: block;
+max-width: 15%;
+}
+
+.collection-categories {
+  display: flex;
+  justify-content: left;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000;
+  background-color: #fff;
+  max-width: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 0 0;
+  margin-top: 0%;
+  position: relative;
+  border: none;
+}
+.collection-categories2 {
+  display: flex;
+  justify-content: left;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #ff0000;
+  background-color: #fff;
+  max-width: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  margin-top: 0%;
+  position: relative;
+  border: none;
+}
+
+.collection-categories:hover {
+  display: flex;
+  justify-content: left;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #ff0000;
+  cursor: pointer;
+  background-color: #fff;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 0 0;
+  margin-top: 0%;
+  position: relative;
+  border: none;
+}
+
+
+.collection-menu-item:hover {
+  color: #ff0000;
+}
+
+.collection-menu-item.active {
+  color: #ff0000;
+}
+
+/* Responsywność dla nowego menu */
+@media (max-width: 768px) {
+  .collection-menu {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+}
+
+span#lewy {
+  font-family: "Courier New", Courier, monospace;
+}
+/* Styl nagłówka */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 5%;
+  border-bottom: 1px solid #e1e1e1;
+  position: sticky;
+  top: 0;
+  background-color: white;
+  z-index: 1000;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 25px;
+  align-items: center;
+}
+
+.nav-item {
+  font-size: 14px;
+  color: #000;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+}
+
+.nav-item:hover {
+  color: #555;
+}
+
+.collab-link {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #ff0000;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+  border: none; 
+}
+.collab-link:hover {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  cursor: pointer;
+  color: #cc8888;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+  border: none; 
+}
+.slideshow-container {
+  max-width: 800px;
+  position: relative;
+  margin: auto;
+}
+
+.slide {
+  display: none;
+  width: 100%;
+}
+
+.slide img {
+  width: 100%;
+  vertical-align: middle;
+}
+/* Dodaj te style do App.css */
+/* Dodaj te style na końcu pliku CSS */
+.about-us-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 40px;
+  margin: 40px 0;
+}
+
+.models-slideshow {
+  flex: 1;
+  max-width: 40%;
+  height: 500px;
+}
+
+.collection-onas {
+  flex: 1;
+  max-width: 40%;
+  font-size: 10px;
+  color: #000;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  line-height: 1.6;
+  text-align: left;
+  padding: 0;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .about-us-container {
+    flex-direction: column;
+  }
+  
+  .models-slideshow,
+  .collection-onas {
+    max-width: 100%;
+  }
+}
+
+.model-slide {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 1s ease;
+}
+
+.model-slide img {
+  position: absolute;
+  top: 25%;
+  left: 20%;
+  max-width: 100%;
+  max-height: 450px;
+  object-fit: contain;
+  transition: opacity 1s ease;
+    border: 2px solid #7f0000; /* grubość, styl, kolor */
+    border-radius: 8px; /* opcjonalnie zaokrąglenie rogów */
+  
+}
+
+/* Animacja przejścia */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.model-slide {
+  animation: fadeIn 1s ease-in-out;
+}
+/* Przyciski nawigacyjne */
+.prev, .next {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+  background-color: rgba(0,0,0,0.5);
+}
+
+.next {
+  right: 0;
+  border-radius: 3px 0 0 3px;
+}
+
+.prev:hover, .next:hover {
+  background-color: rgba(0,0,0,0.8);
+}
+
+.dropdown-container {
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+}
+
+.nav-button {
+  background: none;
+  border: none;
+  font-size: 14px;
+  cursor: pointer;
+  color: #000;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  padding: 5px 0;
+  transition: color 0.3s ease;
+}
+
+.nav-button:hover {
+  color: #555;
+}
+
+/* Dropdown menu */
+.dropdown {
+  font-family: "Courier New", Courier, monospace;
+  position: absolute;
+  top: 100%;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  min-width: 200px;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.dropdown-container:hover .dropdown {
+  font-family: "Courier New", Courier, monospace;
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdown li {
+  font-family: "Courier New", Courier, monospace;
+  padding: 0px 0px;
+  color: #000;
+  font-size: 10px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  transition: all 0.3s ease;
+}
+
+.logostrony {
+  position: absolute;
+  left:47%;
+  width:7%;
+  height:12%;
+  top: 5px;
+}
+.dropdown li a {
+  font-family: "Courier New", Courier, monospace;
+  color: inherit;
+}
+
+.logo-link {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.logo {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: #000;
+}
+
+.header-icons {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.search-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.search-input {
+  border: none;
+  border-bottom: 1px solid #000;
+  padding: 5px 25px 5px 5px;
+  font-size: 13px;
+  width: 0;
+  transition: width 0.3s ease;
+  opacity: 0;
+}
+
+.search-container:hover .search-input {
+  width: 150px;
+  opacity: 1;
+}
+
+.search-icon {
+  position: absolute;
+  right: 0;
+}
+
+.icon {
+  font-size: 16px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.icon:hover {
+  color: #555;
+}
+
+/* Hero Banner */
+.hero-banner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.banner-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+.announcement-bar {
+  position: absolute;
+  left: 0px;
+  width: 100%;
+  background-color: #000;
+  color: #fff;
+  padding: 10px 0;
+  text-align: center;
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+.announcement-bar-text {
+    font-family: "Courier New", Courier, monospace;
+    font-size: 10px;
+    color: #ffffff;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: color 0.3s ease;
+    padding: 5px 0;
+    position: relative;
+    border: none; 
+}
+
+/* Chief Keef Collection Page */
+.chief-keef-page {
+  padding: 60px 5% 100px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.collection-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.collection-header h1 {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 3px;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+}
+
+.subtitle {
+  font-size: 16px;
+  letter-spacing: 5px;
+  color: #999;
+  text-transform: uppercase;
+}
+
+.products {
+  margin-top: -12%;
+  margin-left:20%;
+  min-height: 10%;
+  max-width:70%;
+}
+
+.productschief {
+  margin-left:20%;
+  min-height: 10%;
+  max-width:70%;
+}
+.products-grid {
+  font-family: "Courier New", Courier, monospace;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 100px));
+  gap: 20px;
+  margin: 10px 0;
+}
+
+.product-card {
+  font-family: "Courier New", Courier, monospace;
+  position: relative;
+  transition: transform 0.3s ease;
+  height: 100%;
+}
+
+.product-card:hover {
+  font-family: "Courier New", Courier, monospace;
+  transform: translateY(-10px);
+}
+
+#chiefkeefclothes {
+  width: 200px;
+  height: 200px;
+  background-color: #db3333;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: center;
+}
+.product-image-placeholder {
+  font-family: "Courier New", Courier, monospace;
+  width: 200px;
+  height: 200px;
+  background-color: #db3333;
+  margin-bottom: 20px;
+  background-size: cover;
+  background-position: center;
+}
+
+.product-card h3 {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 1px;
+  margin-bottom: 5px;
+  text-transform: uppercase;
+}
+
+.product-description {
+  font-family: "Courier New", Courier, monospace;
+  color: #666;
+  font-size: 11px;
+  line-height: 1.6;
+  margin-bottom: 10px;
+  min-height: 20px;
+}
+
+.product-price {
+  font-family: "Courier New", Courier, monospace;
+  font-weight: 600;
+  font-size: 11px;
+  margin: 0 0;
+}
+
+.add-to-cart {
+  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  padding: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+.powrot {
+  width: 100%;
+  padding: 15px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
+
+.add-to-cart:hover {
+  background-color: #333;
+}
+
+.collab-description {
+  margin-top: 80px;
+  text-align: center;
+  padding: 0 10%;
+}
+
+.collab-description h2 {
+  font-size: 24px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  margin-bottom: 30px;
+  text-transform: uppercase;
+}
+
+.collab-description p {
+  font-size: 16px;
+  color: #666;
+  line-height: 1.8;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+/* Responsywność */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    padding: 15px;
+  }
+  
+  .nav-menu {
+    margin-top: 15px;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .logo-link {
+    position: relative;
+    left: auto;
+    transform: none;
+    order: -1;
+  }
+  
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .collection-header h1 {
+    font-size: 36px;
+  }
+}
+
+
+.size-selector label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+}
+
+.size-selector select {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  width: 100%;
+  padding: 10px;
+  background-color: #ff0808;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  transition: all 0.3s ease;
+}
