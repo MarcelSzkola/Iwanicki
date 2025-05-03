@@ -115,6 +115,31 @@ body {
   position: relative;
   border: none;
 }
+.collection-menu-welcome {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #000000;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  position: relative;
+}
+
+.collection-menu-login {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  font-size: 10px;
+  color: #9c1313;
+  font-weight: 600;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  transition: color 0.3s ease;
+  padding: 5px 0;
+  position: relative;
+  border: none;
+}
 
 .collection-menu-privacypolicy {
   text-align: center;
@@ -733,7 +758,50 @@ span#lewy {
   max-width: 800px;
   margin: 0 auto;
 }
-
+.login-panel {
+  text-align: center;
+}
+.panel-tekst {
+    font-family: "Courier New", Courier, monospace;
+    width: 100%;
+    padding: 10px 10px;
+    color: #000000;
+    font-size: 16px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.panel-email-password {
+  text-align: center;
+  width: 20%;
+  margin-top: 1%;
+  padding: 10px 10px;
+  border: 1px solid #831d1d;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+.panel-error-logged {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 12px;
+}
+.panel-button {
+  text-align: center;
+  font-family: "Courier New", Courier, monospace;
+  width: 22%;
+  margin-top: 1%;
+  padding: 10px 10px;
+  background-color: #831d1d;
+  color: #fff;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
 /* Responsywność */
 @media (max-width: 768px) {
   .header {

@@ -1,4 +1,10 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
+import { database, ref, set, get, child } from './firebase-config';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from './firebase-config'; // Upewnij się, że ścieżka jest poprawna
+import { createUserWithEmailAndPassword } from 'firebase/auth';
+import Cookies from 'js-cookie';
+
 
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
 import { FaSearch, FaUser, FaShoppingBag } from 'react-icons/fa';
@@ -107,1353 +113,1790 @@ import model8 from './models/model11.jpg';
 const sizes = ['XS','S','M','L','XL'];
 
 const products = [
-  {
-  id: 1,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : jackets1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 2,
-  category: 'jackets',
-  name: 'jacket',
-  img : jackets2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 3,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-  img : jackets3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 4,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 5,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 6,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 7,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 8,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 9,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 10,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 11,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : cap1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 12,
-  category: 'cap',
-  name: 'jacket',
-  img : cap2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 13,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-  img : cap3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 14,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 15,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 16,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 17,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 18,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 19,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 20,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 21,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : hoodies1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 22,
-  category: 'hoodies',
-  name: 'jacket',
-  img : hoodies2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 23,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF hoodies FOR A SUMMER',
-  img : hoodies3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 24,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 25,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 26,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 27,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 28,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 29,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 30,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 31,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirts',
-  img : tshirts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 32,
-  category: 'tshirts',
-  name: 'jacket',
-  img : tshirts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 33,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirtss FOR A SUMMER',
-  img : tshirts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 34,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 35,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 36,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 37,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 38,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 39,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 40,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 31,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirts',
-  img : tshirts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 32,
-  category: 'tshirts',
-  name: 'jacket',
-  img : tshirts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 33,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirtss FOR A SUMMER',
-  img : tshirts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 34,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 35,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 36,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 37,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 38,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 39,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 40,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 41,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF trousers',
-  img : trousers1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 42,
-  category: 'trousers',
-  name: 'jacket',
-  img : trousers2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 43,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF trouserss FOR A SUMMER',
-  img : trousers3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 44,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 45,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 46,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 47,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 48,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 49,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 50,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 51,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF jeanses',
-  img : jeanses1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+  // Kategoria: Cap
+  {
+    id: 1,
+    name: "Urban Vibes Cap",
+    description: "A snapback cap with a minimalist logo.",
+    category: "cap",
+    img: cap1,
+    price: 29.99,
   },
-  {
-  id: 52,
-  category: 'jeanses',
-  name: 'jacket',
-  img : jeanses2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
+  {
+    id: 2,
+    name: "Neon Glow Cap",
+    description: "Bright neon cap, perfect for any street style.",
+    category: "cap",
+    img: cap2,
+    price: 34.99,
   },
-  {
-  id: 53,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF jeansess FOR A SUMMER',
-  img : jeanses3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+  {
+    id: 3,
+    name: "Camo Street Cap",
+    description: "Camo design for a rugged, street-ready look.",
+    category: "cap",
+    img: cap3,
+    price: 29.99,
   },
-  {
-  id: 54,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 4,
+    name: "Blackout Flex Cap",
+    description: "Sleek black cap with an embroidered logo.",
+    category: "cap",
+    img: cap4,
+    price: 32.99,
   },
-  {
-  id: 55,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 5,
+    name: "Street Kings Cap",
+    description: "For the rulers of the street. Bold and stylish.",
+    category: "cap",
+    img: cap5,
+    price: 35.99,
   },
-  {
-  id: 56,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 6,
+    name: "Retro Snapback Cap",
+    description: "Old school vibes with a modern twist.",
+    category: "cap",
+    img: cap6,
+    price: 27.99,
   },
-  {
-  id: 57,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 7,
+    name: "City Nights Cap",
+    description: "Perfect for the night walkers and street lovers.",
+    category: "cap",
+    img: cap7,
+    price: 31.99,
   },
-  {
-  id: 58,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 59,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 60,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 61,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF shorts',
-  img : shorts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 62,
-  category: 'shorts',
-  name: 'jacket',
-  img : shorts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 63,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF shortss FOR A SUMMER',
-  img : shorts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 64,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 65,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 66,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 67,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 68,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 69,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 70,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  }
+  {
+    id: 8,
+    name: "Chill Mode Cap",
+    description: "Casual and laid-back design for everyday wear.",
+    category: "cap",
+    img: cap8,
+    price: 29.99,
+  },
+  {
+    id: 9,
+    name: "Tech Flex Cap",
+    description: "Modern and tech-inspired design for a futuristic feel.",
+    category: "cap",
+    img: cap9,
+    price: 33.99,
+  },
+  {
+    id: 10,
+    name: "Wild Style Cap",
+    description: "For those who like to stand out.",
+    category: "cap",
+    img: cap10,
+    price: 36.99,
+  },
+
+  // Kategoria: Jackets
+  {
+    id: 11,
+    name: "Urban Drift Jacket",
+    description: "Light jacket, perfect for layering.",
+    category: "jackets",
+    img: jackets1,
+    price: 89.99,
+  },
+  {
+    id: 12,
+    name: "Heavy Duty Jacket",
+    description: "Designed for the harshest weather conditions.",
+    category: "jackets",
+    img: jackets2,
+    price: 99.99,
+  },
+  {
+    id: 13,
+    name: "Tech Street Jacket",
+    description: "Futuristic, tech-inspired jacket for modern streetwear.",
+    category: "jackets",
+    img: jackets3,
+    price: 105.99,
+  },
+  {
+    id: 14,
+    name: "Streetwear Bomber Jacket",
+    description: "Classic bomber style with a street twist.",
+    category: "jackets",
+    img: jackets4,
+    price: 109.99,
+  },
+  {
+    id: 15,
+    name: "Camouflage Utility Jacket",
+    description: "Military-inspired design with plenty of pockets.",
+    category: "jackets",
+    img: jackets5,
+    price: 112.99,
+  },
+  {
+    id: 16,
+    name: "Reflective Jacket",
+    description: "Stay visible with this reflective, street-ready jacket.",
+    category: "jackets",
+    img: jackets6,
+    price: 115.99,
+  },
+  {
+    id: 17,
+    name: "Storm Rider Jacket",
+    description: "Windproof and waterproof, designed for rainy days.",
+    category: "jackets",
+    img: jackets7,
+    price: 124.99,
+  },
+  {
+    id: 18,
+    name: "Minimalist Zip Jacket",
+    description: "Sleek, minimalist design for every occasion.",
+    category: "jackets",
+    img: jackets8,
+    price: 89.99,
+  },
+  {
+    id: 19,
+    name: "High Voltage Jacket",
+    description: "Bold and electrifying designs for standout style.",
+    category: "jackets",
+    img: jackets9,
+    price: 119.99,
+  },
+  {
+    id: 20,
+    name: "Night Rider Jacket",
+    description: "For the night adventurer, with a reflective finish.",
+    category: "jackets",
+    img: jackets10,
+    price: 128.99,
+  },
+
+  // Kategoria: Hoodies
+  {
+    id: 21,
+    name: "Street King Hoodie",
+    description: "A hoodie for those who rule the streets.",
+    category: "hoodies",
+    img: hoodies1,
+    price: 79.99,
+  },
+  {
+    id: 22,
+    name: "Nightlife Hoodie",
+    description: "Glow-in-the-dark graphics for the night owls.",
+    category: "hoodies",
+    img: hoodies2,
+    price: 84.99,
+  },
+  {
+    id: 23,
+    name: "Rebel Soul Hoodie",
+    description: "Embrace your rebellious side in this hoodie.",
+    category: "hoodies",
+    img: hoodies3,
+    price: 74.99,
+  },
+  {
+    id: 24,
+    name: "City Lights Hoodie",
+    description: "For the urban dreamers and night walkers.",
+    category: "hoodies",
+    img: hoodies4,
+    price: 79.99,
+  },
+  {
+    id: 25,
+    name: "Tech Street Hoodie",
+    description: "Futuristic design meets street style.",
+    category: "hoodies",
+    img: hoodies5,
+    price: 89.99,
+  },
+  {
+    id: 26,
+    name: "Shattered Dreams Hoodie",
+    description: "Artistic and distressed design, for the bold.",
+    category: "hoodies",
+    img: hoodies6,
+    price: 84.99,
+  },
+  {
+    id: 27,
+    name: "Vibe Check Hoodie",
+    description: "Street-inspired hoodie with a message.",
+    category: "hoodies",
+    img: hoodies7,
+    price: 79.99,
+  },
+  {
+    id: 28,
+    name: "Retro Pulse Hoodie",
+    description: "A blast from the past with a modern twist.",
+    category: "hoodies",
+    img: hoodies8,
+    price: 74.99,
+  },
+  {
+    id: 29,
+    name: "Nocturnal Hoodie",
+    description: "Dark and mysterious hoodie for the night lovers.",
+    category: "hoodies",
+    img: hoodies9,
+    price: 79.99,
+  },
+  {
+    id: 30,
+    name: "Chillwave Hoodie",
+    description: "Soft and comfortable, perfect for relaxed vibes.",
+    category: "hoodies",
+    img: hoodies10,
+    price: 69.99,
+  },
+
+  // Kategoria: T-Shirts
+  {
+    id: 31,
+    name: "Neon Street Tee",
+    description: "Bright neon graphic tee for the bold.",
+    category: "tshirts",
+    img: tshirts1,
+    price: 24.99,
+  },
+  {
+    id: 32,
+    name: "Bold Statement Tee",
+    description: "A t-shirt that speaks for itself.",
+    category: "tshirts",
+    img: tshirts2,
+    price: 19.99,
+  },
+  {
+    id: 33,
+    name: "Retro Vibe Tee",
+    description: "Vintage-inspired design with a modern fit.",
+    category: "tshirts",
+    img: tshirts3,
+    price: 22.99,
+  },
+  {
+    id: 34,
+    name: "Street Block Tee",
+    description: "Streetwear inspired by blocks and grids.",
+    category: "tshirts",
+    img: tshirts4,
+    price: 21.99,
+  },
+  {
+    id: 35,
+    name: "Rogue Wave Tee",
+    description: "A rebellious design for the trendsetters.",
+    category: "tshirts",
+    img: tshirts5,
+    price: 19.99,
+  },
+  {
+    id: 36,
+    name: "Minimal Print Tee",
+    description: "Simple and clean design for daily wear.",
+    category: "tshirts",
+    img: tshirts6,
+    price: 18.99,
+  },
+  {
+    id: 37,
+    name: "Vibe Shift Tee",
+    description: "For the bold individuals who follow their vibe.",
+    category: "tshirts",
+    img: tshirts7,
+    price: 20.99,
+  },
+  {
+    id: 38,
+    name: "Pixel Storm Tee",
+    description: "Futuristic design with pixelated details.",
+    category: "tshirts",
+    img: tshirts8,
+    price: 23.99,
+  },
+  {
+    id: 39,
+    name: "All-Over Print Tee",
+    description: "Full print design for the adventurous soul.",
+    category: "tshirts",
+    img: tshirts9,
+    price: 25.99,
+  },
+  {
+    id: 40,
+    name: "Signature Logo Tee",
+    description: "Bold logo tee, a must-have for every collection.",
+    category: "tshirts",
+    img: tshirts10,
+    price: 29.99,
+  },
+
+  // Kategoria: Trousers (10 produktów)
+  {
+    id: 41,
+    name: "Street Pulse Trousers",
+    description: "A relaxed fit with subtle detailing.",
+    category: "trousers",
+    img: trousers1,
+    price: 59.99,
+  },
+  {
+    id: 42,
+    name: "TechFlex Trousers",
+    description: "Sporty design with a futuristic touch.",
+    category: "trousers",
+    img: trousers2,
+    price: 69.99,
+  },
+  {
+    id: 43,
+    name: "Urban Drip Trousers",
+    description: "Loose fit and street-ready.",
+    category: "trousers",
+    img: trousers3,
+    price: 65.99,
+  },
+  {
+    id: 44,
+    name: "Track Master Trousers",
+    description: "Perfect for running, moving, and chilling.",
+    category: "trousers",
+    img: trousers4,
+    price: 58.99,
+  },
+  {
+    id: 45,
+    name: "City Flow Trousers",
+    description: "Perfect for the city wanderers and explorers.",
+    category: "trousers",
+    img: trousers5,
+    price: 62.99,
+  },
+  {
+    id: 46,
+    name: "Loose Fit Trousers",
+    description: "Comfortable fit for everyday wear.",
+    category: "trousers",
+    img: trousers6,
+    price: 66.99,
+  },
+  {
+    id: 47,
+    name: "Chill Mode Trousers",
+    description: "Relaxed design for laid-back vibes.",
+    category: "trousers",
+    img: trousers7,
+    price: 59.99,
+  },
+  {
+    id: 48,
+    name: "Flex Pro Trousers",
+    description: "Professional look with a casual feel.",
+    category: "trousers",
+    img: trousers8,
+    price: 68.99,
+  },
+  {
+    id: 49,
+    name: "Speed Stride Trousers",
+    description: "Designed for movement, perfect for active wear.",
+    category: "trousers",
+    img: trousers9,
+    price: 72.99,
+  },
+  {
+    id: 50,
+    name: "Night Runner Trousers",
+    description: "For those who run the streets after dark.",
+    category: "trousers",
+    img: trousers10,
+    price: 75.99,
+  },
+
+  // Kategoria: Jeanses (10 produktów)
+  {
+    id: 51,
+    name: "Street Fit Jeans",
+    description: "Slim fit with a perfect street vibe.",
+    category: "jeanses",
+    img: jeanses1,
+    price: 69.99,
+  },
+  {
+    id: 52,
+    name: "Rugged Denim Jeans",
+    description: "Durable and rugged, made for tough wear.",
+    category: "jeanses",
+    img: jeanses2,
+    price: 74.99,
+  },
+  {
+    id: 53,
+    name: "Classic Blue Jeans",
+    description: "Timeless blue jeans for every occasion.",
+    category: "jeanses",
+    img: jeanses3,
+    price: 69.99,
+  },
+  {
+    id: 54,
+    name: "Distressed Denim Jeans",
+    description: "For a more casual, distressed look.",
+    category: "jeanses",
+    img: jeanses4,
+    price: 72.99,
+  },
+  {
+    id: 55,
+    name: "Skinny Fit Jeans",
+    description: "Perfect fit for a sleek, modern look.",
+    category: "jeanses",
+    img: jeanses5,
+    price: 65.99,
+  },
+  {
+    id: 56,
+    name: "Loose Fit Jeans",
+    description: "Comfortable, relaxed fit for casual days.",
+    category: "jeanses",
+    img: jeanses6,
+    price: 68.99,
+  },
+  {
+    id: 57,
+    name: "Vintage Wash Jeans",
+    description: "A retro vibe with a modern fit.",
+    category: "jeanses",
+    img: jeanses7,
+    price: 74.99,
+  },
+  {
+    id: 58,
+    name: "Blackout Denim Jeans",
+    description: "All black design for the bold.",
+    category: "jeanses",
+    img: jeanses8,
+    price: 78.99,
+  },
+  {
+    id: 59,
+    name: "Wide Leg Jeans",
+    description: "For a relaxed and free-flowing look.",
+    category: "jeanses",
+    img: jeanses9,
+    price: 82.99,
+  },
+  {
+    id: 60,
+    name: "Slim Fit Ripped Jeans",
+    description: "Ripped style for a street-ready appearance.",
+    category: "jeanses",
+    img: jeanses10,
+    price: 85.99,
+  },
+    // Kategoria: Shorts (10 produktów)
+    {
+      id: 51,
+      name: "Urban Vibes Shorts",
+      description: "Loose fit, perfect for city life.",
+      category: "shorts",
+      img: shorts1,
+      price: 49.99,
+    },
+    {
+      id: 52,
+      name: "City Heat Shorts",
+      description: "Bold, graphic design for the summer heat.",
+      category: "shorts",
+      img: shorts2,
+      price: 54.99,
+    },
+    {
+      id: 53,
+      name: "TechFlex Shorts",
+      description: "Sporty design with a sleek finish.",
+      category: "shorts",
+      img: shorts3,
+      price: 59.99,
+    },
+    {
+      id: 54,
+      name: "Chill Mode Shorts",
+      description: "Perfect for a laid-back summer day.",
+      category: "shorts",
+      img: shorts4,
+      price: 47.99,
+    },
+    {
+      id: 55,
+      name: "All Day Comfort Shorts",
+      description: "Soft and comfortable for all-day wear.",
+      category: "shorts",
+      img: shorts5,
+      price: 52.99,
+    },
+    {
+      id: 56,
+      name: "StreetFlow Shorts",
+      description: "Perfect for everyday street style.",
+      category: "shorts",
+      img: shorts6,
+      price: 50.99,
+    },
+    {
+      id: 57,
+      name: "Sunset Vibe Shorts",
+      description: "Perfect for beach days and sunset views.",
+      category: "shorts",
+      img: shorts7,
+      price: 55.99,
+    },
+    {
+      id: 58,
+      name: "Casual Wave Shorts",
+      description: "Ideal for casual days and comfort.",
+      category: "shorts",
+      img: shorts8,
+      price: 51.99,
+    },
+    {
+      id: 59,
+      name: "TechLuxe Shorts",
+      description: "Luxury tech style for ultimate comfort.",
+      category: "shorts",
+      img: shorts9,
+      price: 60.99,
+    },
+    {
+      id: 60,
+      name: "StreetLegend Shorts",
+      description: "For the legends of the street.",
+      category: "shorts",
+      img: shorts10,
+      price: 48.99,
+    }
 ];
+
 const productspl = [
-  {
-  id: 1,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : jackets1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 2,
-  category: 'jackets',
-  name: 'jacket',
-  img : jackets2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 3,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-  img : jackets3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 4,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 5,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 6,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 7,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 8,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 9,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 10,
-  category: 'jackets',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jackets10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 11,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : cap1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 12,
-  category: 'cap',
-  name: 'jacket',
-  img : cap2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 13,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-  img : cap3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 14,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 15,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 16,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 17,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 18,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 19,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 20,
-  category: 'cap',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : cap10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 21,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : hoodies1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 22,
-  category: 'hoodies',
-  name: 'jacket',
-  img : hoodies2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 23,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF hoodies FOR A SUMMER',
-  img : hoodies3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 24,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 25,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 26,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 27,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 28,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 29,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 30,
-  category: 'hoodies',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : hoodies10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 31,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirts',
-  img : tshirts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 32,
-  category: 'tshirts',
-  name: 'jacket',
-  img : tshirts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 33,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirtss FOR A SUMMER',
-  img : tshirts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 34,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 35,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 36,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 37,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 38,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 39,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 40,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 31,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirts',
-  img : tshirts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 32,
-  category: 'tshirts',
-  name: 'jacket',
-  img : tshirts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 33,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF tshirtss FOR A SUMMER',
-  img : tshirts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 34,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 35,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 36,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 37,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 38,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 39,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 40,
-  category: 'tshirts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : tshirts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 41,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF trousers',
-  img : trousers1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 42,
-  category: 'trousers',
-  name: 'jacket',
-  img : trousers2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 43,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF trouserss FOR A SUMMER',
-  img : trousers3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 44,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 45,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 46,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 47,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 48,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 49,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 50,
-  category: 'trousers',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : trousers10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 51,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF jeanses',
-  img : jeanses1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+  // Kategoria: Cap
+  {
+    id: 1,
+    name: "Urban Vibes Cap",
+    description: "Czapka snapback z minimalistycznym logo.",
+    category: "cap",
+    img: cap1,
+    price: 29.99,
   },
-  {
-  id: 52,
-  category: 'jeanses',
-  name: 'jacket',
-  img : jeanses2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
+  {
+    id: 2,
+    name: "Neon Glow Cap",
+    description: "Jaskrawa czapka neonowa, idealna na uliczny styl.",
+    category: "cap",
+    img: cap2,
+    price: 34.99,
   },
-  {
-  id: 53,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF jeansess FOR A SUMMER',
-  img : jeanses3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+  {
+    id: 3,
+    name: "Camo Street Cap",
+    description: "Czapka w kamuflażu na wytrzymały, uliczny look.",
+    category: "cap",
+    img: cap3,
+    price: 29.99,
   },
-  {
-  id: 54,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 4,
+    name: "Blackout Flex Cap",
+    description: "Elegancka czarna czapka z haftowanym logo.",
+    category: "cap",
+    img: cap4,
+    price: 32.99,
   },
-  {
-  id: 55,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 5,
+    name: "Street Kings Cap",
+    description: "Dla władców ulic. Odważna i stylowa.",
+    category: "cap",
+    img: cap5,
+    price: 35.99,
   },
-  {
-  id: 56,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 6,
+    name: "Retro Snapback Cap",
+    description: "Oldschoolowe wibracje z nowoczesnym akcentem.",
+    category: "cap",
+    img: cap6,
+    price: 27.99,
   },
-  {
-  id: 57,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+  {
+    id: 7,
+    name: "City Nights Cap",
+    description: "Idealna na nocne spacery po mieście.",
+    category: "cap",
+    img: cap7,
+    price: 31.99,
   },
-  {
-  id: 58,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 59,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 60,
-  category: 'jeanses',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : jeanses10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 61,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF shorts',
-  img : shorts1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
-  },
-  {
-  id: 62,
-  category: 'shorts',
-  name: 'jacket',
-  img : shorts2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
-  },
-  {
-  id: 63,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF shortss FOR A SUMMER',
-  img : shorts3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
-  },
-  {
-  id: 64,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 65,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 66,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 67,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 68,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 69,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts9,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  },
-  {
-  id: 70,
-  category: 'shorts',
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : shorts10,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
-  }
+  {
+    id: 8,
+    name: "Chill Mode Cap",
+    description: "Casualowy i relaksujący design na co dzień.",
+    category: "cap",
+    img: cap8,
+    price: 29.99,
+  },
+  {
+    id: 9,
+    name: "Tech Flex Cap",
+    description: "Nowoczesny design inspirowany technologią.",
+    category: "cap",
+    img: cap9,
+    price: 33.99,
+  },
+  {
+    id: 10,
+    name: "Wild Style Cap",
+    description: "Dla tych, którzy chcą wyróżniać się z tłumu.",
+    category: "cap",
+    img: cap10,
+    price: 36.99,
+  },
+
+  // Kategoria: Jackets
+  {
+    id: 11,
+    name: "Urban Drift Jacket",
+    description: "Lekka kurtka, idealna do noszenia w warstwach.",
+    category: "jackets",
+    img: jackets1,
+    price: 89.99,
+  },
+  {
+    id: 12,
+    name: "Heavy Duty Jacket",
+    description: "Kurtka zaprojektowana na najcięższe warunki atmosferyczne.",
+    category: "jackets",
+    img: jackets2,
+    price: 99.99,
+  },
+  {
+    id: 13,
+    name: "Tech Street Jacket",
+    description: "Futurystyczna, inspirowana technologią kurtka do streetwearu.",
+    category: "jackets",
+    img: jackets3,
+    price: 105.99,
+  },
+  {
+    id: 14,
+    name: "Streetwear Bomber Jacket",
+    description: "Klasyczny bomber w ulicznym wydaniu.",
+    category: "jackets",
+    img: jackets4,
+    price: 109.99,
+  },
+  {
+    id: 15,
+    name: "Camouflage Utility Jacket",
+    description: "Kurtka inspirowana wojskiem z wieloma kieszeniami.",
+    category: "jackets",
+    img: jackets5,
+    price: 112.99,
+  },
+  {
+    id: 16,
+    name: "Reflective Jacket",
+    description: "Pozostań widoczny dzięki tej odblaskowej kurtce.",
+    category: "jackets",
+    img: jackets6,
+    price: 115.99,
+  },
+  {
+    id: 17,
+    name: "Storm Rider Jacket",
+    description: "Kurtka wiatro- i wodoodporna, stworzona na deszczowe dni.",
+    category: "jackets",
+    img: jackets7,
+    price: 124.99,
+  },
+  {
+    id: 18,
+    name: "Minimalist Zip Jacket",
+    description: "Elegancki, minimalistyczny design na każdą okazję.",
+    category: "jackets",
+    img: jackets8,
+    price: 89.99,
+  },
+  {
+    id: 19,
+    name: "High Voltage Jacket",
+    description: "Odważne i elektryzujące wzory, które przyciągają uwagę.",
+    category: "jackets",
+    img: jackets9,
+    price: 119.99,
+  },
+  {
+    id: 20,
+    name: "Night Rider Jacket",
+    description: "Dla nocnych wędrowców, z odblaskowym wykończeniem.",
+    category: "jackets",
+    img: jackets10,
+    price: 128.99,
+  },
+
+  // Kategoria: Hoodies
+  {
+    id: 21,
+    name: "Street King Hoodie",
+    description: "Bluza dla tych, którzy rządzą ulicami.",
+    category: "hoodies",
+    img: hoodies1,
+    price: 79.99,
+  },
+  {
+    id: 22,
+    name: "Nightlife Hoodie",
+    description: "Grafika świecąca w ciemności dla nocnych marków.",
+    category: "hoodies",
+    img: hoodies2,
+    price: 84.99,
+  },
+  {
+    id: 23,
+    name: "Rebel Soul Hoodie",
+    description: "Bluza wyrażająca twój buntowniczy charakter.",
+    category: "hoodies",
+    img: hoodies3,
+    price: 74.99,
+  },
+  {
+    id: 24,
+    name: "City Lights Hoodie",
+    description: "Dla miejskich marzycieli i nocnych wędrowców.",
+    category: "hoodies",
+    img: hoodies4,
+    price: 79.99,
+  },
+  {
+    id: 25,
+    name: "Tech Street Hoodie",
+    description: "Futurystyczny design spotyka uliczny styl.",
+    category: "hoodies",
+    img: hoodies5,
+    price: 89.99,
+  },
+  {
+    id: 26,
+    name: "Shattered Dreams Hoodie",
+    description: "Artystyczny, zniszczony design dla odważnych.",
+    category: "hoodies",
+    img: hoodies6,
+    price: 84.99,
+  },
+  {
+    id: 27,
+    name: "Vibe Check Hoodie",
+    description: "Bluza inspirowana ulicznym stylem z przekazem.",
+    category: "hoodies",
+    img: hoodies7,
+    price: 79.99,
+  },
+  {
+    id: 28,
+    name: "Retro Pulse Hoodie",
+    description: "Powrót do przeszłości z nowoczesnym twistem.",
+    category: "hoodies",
+    img: hoodies8,
+    price: 74.99,
+  },
+  {
+    id: 29,
+    name: "Nocturnal Hoodie",
+    description: "Czarna, tajemnicza bluza dla miłośników nocy.",
+    category: "hoodies",
+    img: hoodies9,
+    price: 79.99,
+  },
+  {
+    id: 30,
+    name: "Chillwave Hoodie",
+    description: "Miękka i komfortowa, idealna na relaks.",
+    category: "hoodies",
+    img: hoodies10,
+    price: 69.99,
+  },
+
+  // Kategoria: T-Shirts
+  {
+    id: 31,
+    name: "Neon Street Tee",
+    description: "Jaskrawa, neonowa koszulka dla odważnych.",
+    category: "tshirts",
+    img: tshirts1,
+    price: 24.99,
+  },
+  {
+    id: 32,
+    name: "Bold Statement Tee",
+    description: "Koszulka, która mówi za siebie.",
+    category: "tshirts",
+    img: tshirts2,
+    price: 19.99,
+  },
+  {
+    id: 33,
+    name: "Retro Vibe Tee",
+    description: "Design inspirowany latami 90., z nowoczesnym krojem.",
+    category: "tshirts",
+    img: tshirts3,
+    price: 22.99,
+  },
+  {
+    id: 34,
+    name: "Street Block Tee",
+    description: "Koszulka inspirowana ulicami i blokami.",
+    category: "tshirts",
+    img: tshirts4,
+    price: 21.99,
+  },
+  {
+    id: 35,
+    name: "Rogue Wave Tee",
+    description: "Buntowniczy design dla liderów trendów.",
+    category: "tshirts",
+    img: tshirts5,
+    price: 19.99,
+  },
+  {
+    id: 36,
+    name: "Minimal Print Tee",
+    description: "Prosty, czysty design na co dzień.",
+    category: "tshirts",
+    img: tshirts6,
+    price: 18.99,
+  },
+  {
+    id: 37,
+    name: "Vibe Shift Tee",
+    description: "Dla odważnych, którzy podążają za własnym vibe'em.",
+    category: "tshirts",
+    img: tshirts7,
+    price: 20.99,
+  },
+  {
+    id: 38,
+    name: "Pixel Storm Tee",
+    description: "Futurystyczny design z pikselowymi detalami.",
+    category: "tshirts",
+    img: tshirts8,
+    price: 23.99,
+  },
+  {
+    id: 39,
+    name: "All-Over Print Tee",
+    description: "Koszulka z nadrukiem na całej powierzchni dla odważnych.",
+    category: "tshirts",
+    img: tshirts9,
+    price: 25.99,
+  },
+  {
+    id: 40,
+    name: "Signature Logo Tee",
+    description: "Koszulka z odważnym logo, obowiązkowa w każdej kolekcji.",
+    category: "tshirts",
+    img: tshirts10,
+    price: 29.99,
+  },
+
+  // Kategoria: Trousers (10 produktów)
+  {
+    id: 41,
+    name: "Street Pulse Trousers",
+    description: "Luźny krój z subtelnymi detalami.",
+    category: "trousers",
+    img: trousers1,
+    price: 59.99,
+  },
+  {
+    id: 42,
+    name: "TechFlex Trousers",
+    description: "Sportowy design z futurystycznym akcentem.",
+    category: "trousers",
+    img: trousers2,
+    price: 69.99,
+  },
+  {
+    id: 43,
+    name: "Urban Drip Trousers",
+    description: "Luźny fason, gotowe na uliczny styl.",
+    category: "trousers",
+    img: trousers3,
+    price: 65.99,
+  },
+  {
+    id: 44,
+    name: "Track Master Trousers",
+    description: "Idealne do biegania, ruchu i relaksu.",
+    category: "trousers",
+    img: trousers4,
+    price: 58.99,
+  },
+  {
+    id: 45,
+    name: "City Flow Trousers",
+    description: "Idealne dla miejskich wędrowców i odkrywców.",
+    category: "trousers",
+    img: trousers5,
+    price: 62.99,
+  },
+  {
+    id: 46,
+    name: "Loose Fit Trousers",
+    description: "Wygodny krój na co dzień.",
+    category: "trousers",
+    img: trousers6,
+    price: 66.99,
+  },
+  {
+    id: 47,
+    name: "Chill Mode Trousers",
+    description: "Relaksujący design na spokojne dni.",
+    category: "trousers",
+    img: trousers7,
+    price: 59.99,
+  },
+  {
+    id: 48,
+    name: "Flex Pro Trousers",
+    description: "Profesjonalny wygląd z casualowym komfortem.",
+    category: "trousers",
+    img: trousers8,
+    price: 68.99,
+  },
+  {
+    id: 49,
+    name: "Speed Stride Trousers",
+    description: "Stworzone do ruchu, idealne na aktywność fizyczną.",
+    category: "trousers",
+    img: trousers9,
+    price: 72.99,
+  },
+  {
+    id: 50,
+    name: "Night Runner Trousers",
+    description: "Dla tych, którzy biegają po ulicach po zmroku.",
+    category: "trousers",
+    img: trousers10,
+    price: 75.99,
+  },
+
+  // Kategoria: Jeanses (10 produktów)
+  {
+    id: 51,
+    name: "Street Fit Jeans",
+    description: "Slim fit z idealnym, ulicznym vibe'em.",
+    category: "jeanses",
+    img: jeanses1,
+    price: 69.99,
+  },
+  {
+    id: 52,
+    name: "Rugged Denim Jeans",
+    description: "Wytrzymałe i solidne, stworzone do intensywnego użytkowania.",
+    category: "jeanses",
+    img: jeanses2,
+    price: 74.99,
+  },
+  {
+    id: 53,
+    name: "Classic Blue Jeans",
+    description: "Ponadczasowe niebieskie jeansy na każdą okazję.",
+    category: "jeanses",
+    img: jeanses3,
+    price: 69.99,
+  },
+  {
+    id: 54,
+    name: "Distressed Denim Jeans",
+    description: "Dla tych, którzy preferują luźniejszy, postrzępiony look.",
+    category: "jeanses",
+    img: jeanses4,
+    price: 72.99,
+  },
+  {
+    id: 55,
+    name: "Skinny Fit Jeans",
+    description: "Idealny krój dla nowoczesnego, szczupłego look'u.",
+    category: "jeanses",
+    img: jeanses5,
+    price: 65.99,
+  },
+  {
+    id: 56,
+    name: "Loose Fit Jeans",
+    description: "Wygodny, luźny krój na codzienne dni.",
+    category: "jeanses",
+    img: jeanses6,
+    price: 68.99,
+  },
+  {
+    id: 57,
+    name: "Blackout Jeans",
+    description: "Czarne jeansy dla minimalistów.",
+    category: "jeanses",
+    img: jeanses7,
+    price: 70.99,
+  },
+  {
+    id: 58,
+    name: "Street Rider Jeans",
+    description: "Idealne na ulice, stworzone do przemieszczania się.",
+    category: "jeanses",
+    img: jeanses8,
+    price: 74.99,
+  },
+  {
+    id: 59,
+    name: "Vintage Fade Jeans",
+    description: "Stary styl z delikatnym wyblakłym efektem.",
+    category: "jeanses",
+    img: jeanses9,
+    price: 72.99,
+  },
+  {
+    id: 60,
+    name: "Casual Blue Jeans",
+    description: "Wygodne, codzienne jeansy w klasycznym stylu.",
+    category: "jeanses",
+    img: jeanses10,
+    price: 65.99,
+  },
+    // Kategoria: Shorts (10 produktów)
+    {
+      id: 61,
+      name: "Urban Drift Shorts",
+      description: "Krótka wersja miejskiego stylu. Wygodne i luźne.",
+      category: "shorts",
+      img: shorts1,
+      price: 39.99,
+    },
+    {
+      id: 62,
+      name: "Tech Flex Shorts",
+      description: "Sportowy wygląd z technologicznymi akcentami.",
+      category: "shorts",
+      img: shorts2,
+      price: 44.99,
+    },
+    {
+      id: 63,
+      name: "Summer Breeze Shorts",
+      description: "Idealne na gorące dni, lekkie i przewiewne.",
+      category: "shorts",
+      img: shorts3,
+      price: 29.99,
+    },
+    {
+      id: 64,
+      name: "City Pulse Shorts",
+      description: "Miejskie szorty, które podążają za rytmem miasta.",
+      category: "shorts",
+      img: shorts4,
+      price: 36.99,
+    },
+    {
+      id: 65,
+      name: "Rebel Shorts",
+      description: "Krótka wersja buntu na ulicy.",
+      category: "shorts",
+      img: shorts5,
+      price: 42.99,
+    },
+    {
+      id: 66,
+      name: "Casual Fit Shorts",
+      description: "Casualowy krój na codzienny luz.",
+      category: "shorts",
+      img: shorts6,
+      price: 38.99,
+    },
+    {
+      id: 67,
+      name: "Reflective Shorts",
+      description: "Bezpieczne, odblaskowe detale na wieczorne spacery.",
+      category: "shorts",
+      img: shorts7,
+      price: 47.99,
+    },
+    {
+      id: 68,
+      name: "Sporty Flex Shorts",
+      description: "Szorty stworzone z myślą o aktywności fizycznej.",
+      category: "shorts",
+      img: shorts8,
+      price: 40.99,
+    },
+    {
+      id: 69,
+      name: "High Rise Shorts",
+      description: "Szorty o wysokim stanie dla wygody i stylu.",
+      category: "shorts",
+      img: shorts9,
+      price: 45.99,
+    },
+    {
+      id: 70,
+      name: "Vintage Wash Shorts",
+      description: "Szorty w stylu retro z przetarciami.",
+      category: "shorts",
+      img: shorts10,
+      price: 41.99,
+    }
 ];
+
+
+
 const productschief = [
+  // Kategoria: Chief
   {
-  id: 1,
-  name: 'DOPEMAGAZINE x CHIEF KEEF HOODIE',
-  img : chief1,
-  price: '499 PLN',
-  description: 'Limitowana edycja bluzy z kolaboracja z Chief Keef'
+    id: 1,
+    name: 'Chief Legacy Jacket',
+    description: 'Limited edition Jacket with Chief Keef’s iconic street style.',
+    category: 'chief',
+    img: chief1,
+    price: 499.99,
   },
   {
-  id: 2,
-  name: 'jacket',
-  img : chief2,
-  price: '599 PLN',
-  description: 'Limitowana edycja koszulki z kolaboracja z Chief Keefaaaaaaaaaaaaaaaaaaaaaaaaaa dwwdbwdbwdubywdbuywd bwydwyubwdyubwdyuwd'
+    id: 2,
+    name: 'Urban Masterpiece Jacket',
+    description: 'Exclusive jacket blending bold fashion with street culture.',
+    category: 'chief',
+    img: chief2,
+    price: 599.99,
   },
   {
-  id: 3,
-  name: 'DOPEMAGAZINE x CHIEF KEEF CAP FOR A SUMMER',
-  img : chief3,
-  price: '249 PLN',
-  description: 'Limitowana edycja czapki z kolaboracja z Chief Keef'
+    id: 3,
+    name: 'Chief Keef Summer Snapback',
+    description: 'Limited edition snapback hat for a fresh summer look.',
+    category: 'chief',
+    img: chief3,
+    price: 249.99,
   },
   {
-  id: 4,
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : chief4,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+    id: 4,
+    name: 'Keef Streets Denim',
+    description: 'Street-ready denim jeans with a bold, raw edge.',
+    category: 'chief',
+    img: chief4,
+    price: 549.99,
   },
   {
-  id: 5,
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : chief5,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+    id: 5,
+    name: 'Chief Rebel Denim',
+    description: 'Durable jeans with a rebellious street style.',
+    category: 'chief',
+    img: chief5,
+    price: 549.99,
   },
   {
-  id: 6,
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : chief6,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+    id: 6,
+    name: 'Street King Denim',
+    description: 'Classic denim with modern streetwear flair.',
+    category: 'chief',
+    img: chief6,
+    price: 549.99,
   },
   {
-  id: 7,
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : chief7,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+    id: 7,
+    name: 'Keef Streets Ripped Denim',
+    description: 'Ripped denim for a rugged, urban vibe.',
+    category: 'chief',
+    img: chief7,
+    price: 549.99,
   },
   {
-  id: 8,
-  name: 'DOPEMAGAZINE x CHIEF KEEF JEANS',
-  img : chief8,
-  price: '549 PLN',
-  description: 'Limitowana edycja jeansow z kolaboracjow Chief Keef'
+    id: 8,
+    name: 'Chief Keef Signature Denim',
+    description: 'Exclusive jeans with Chief Keef’s signature street style.',
+    category: 'chief',
+    img: chief8,
+    price: 549.99,
+  }
+];
+const productschiefpl = [
+  // Kategoria: Chief
+  {
+    id: 1,
+    name: 'Chief Legacy Jacket',
+    description: 'Limitowana edycja kurtki z ikonicznym stylem ulicznym Chief Keefa.',
+    category: 'chief',
+    img: chief1,
+    price: 499.99,
+  },
+  {
+    id: 2,
+    name: 'Urban Masterpiece Jacket',
+    description: 'Ekskluzywna kurtka łącząca odważną modę z kulturą uliczną.',
+    category: 'chief',
+    img: chief2,
+    price: 599.99,
+  },
+  {
+    id: 3,
+    name: 'Chief Keef Summer Snapback',
+    description: 'Limitowana edycja koszuli snapback na świeży letni look.',
+    category: 'chief',
+    img: chief3,
+    price: 249.99,
+  },
+  {
+    id: 4,
+    name: 'Keef Streets Denim',
+    description: 'Koszula gotowa na ulice z wyrazistym, surowym stylem.',
+    category: 'chief',
+    img: chief4,
+    price: 549.99,
+  },
+  {
+    id: 5,
+    name: 'Chief Rebel Denim',
+    description: 'Trwała koszula z buntowniczym stylem ulicznym.',
+    category: 'chief',
+    img: chief5,
+    price: 549.99,
+  },
+  {
+    id: 6,
+    name: 'Street King Denim',
+    description: 'Klasyczna koszula z nowoczesnym stylem streetwear.',
+    category: 'chief',
+    img: chief6,
+    price: 549.99,
+  },
+  {
+    id: 7,
+    name: 'Keef Streets Ripped Denim',
+    description: 'Podarta koszula dla surowego, miejskiego klimatu.',
+    category: 'chief',
+    img: chief7,
+    price: 549.99,
+  },
+  {
+    id: 8,
+    name: 'Chief Keef Signature Denim',
+    description: 'Ekskluzywna koszula z podpisem stylu Chief Keefa.',
+    category: 'chief',
+    img: chief8,
+    price: 549.99,
   }
 ];
 
 
 
+const RegisterPanelen = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+  const [registered, setRegistered] = useState(false);
+
+  const data = new Date();
+
+  const handleRegister = async () => {
+    setError('');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      await set(ref(database, 'users/' + user.uid), {
+        username: username,
+        email: email,
+      });
+
+      setRegistered(true);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <>
+      <div className="chief-keef-page">
+        <div className="collection-header">
+          <img src={dope} alt="logo" className="logostrony" />
+          <p className="czas">
+            {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+            {data.getHours()}:{data.getMinutes()}
+          </p>
+        </div>
+
+        <div className="login-panel">
+          <p className='panel-tekst'>Registration</p>
+          {error && <p className='panel-error-logged' style={{ color: 'red' }}>{error}</p>}
+          {registered ? (
+            <p className='panel-error-logged' style={{ color: 'green' }}>Rejestracja zakończona sukcesem!</p>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                            className='panel-email-password'
+                onChange={(e) => setUsername(e.target.value)}
+              />               <br />
+              <input
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                            className='panel-email-password'
+                onChange={(e) => setEmail(e.target.value)}
+
+              />               <br />
+              <input
+                type="password"
+                placeholder="Password"
+                value={haslo}
+                            className='panel-email-password'
+                onChange={(e) => setHaslo(e.target.value)}
+
+              />               <br />
+              <button className='panel-button' onClick={handleRegister} style={{ padding: '10px 20px' }}>Register</button><br />
+            </>
+          )}
+            <Link to="/en/login">
+            <button className='panel-button'>Login</button>
+            </Link>
+        </div>
+
+
+        <div className="collection-menu">
+          <Link to="/en/collection" className="collection-menu-item active">COLLECTION</Link>
+          <div className="dropdown-container">
+            <button className="collection-menu-item">
+              <img src={usaflag} alt="USA flag" className="flag-icon" /> EN <span className="dropdown-arrow">▼</span>
+            </button>
+            <ul className="dropdown">
+              <li>
+                <Link to="/pl/register">
+                  <img src={plflag} alt="Poland flag" className="flag-icon" /> PL
+                </Link>
+              </li>
+            </ul>
+          </div>
+          <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+          <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+          <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
+          <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+        </div>
+      </div>
+      <p className="collection-menu-copyrights">
+          Dopemagazine {data.getFullYear()}®
+        </p>
+        <Link to="/en/privacypolicy">
+          <p className="collection-menu-privacypolicy">PRIVACY POLICY</p>
+        </Link>
+    </>
+  );
+};
+
+const RegisterPanelpl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [username, setUsername] = useState('');
+  const [error, setError] = useState('');
+  const [registered, setRegistered] = useState(false);
+
+  const data = new Date();
+
+  const handleRegister = async () => {
+    setError('');
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      await set(ref(database, 'users/' + user.uid), {
+        username: username,
+        email: email,
+      });
+
+      setRegistered(true);
+    } catch (err) {
+      setError(err.message);
+    }
+  };
+
+  return (
+    <>
+      <div className="chief-keef-page">
+        <div className="collection-header">
+          <img src={dope} alt="logo" className="logostrony" />
+          <p className="czas">
+            {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+            {data.getHours()}:{data.getMinutes()}
+          </p>
+        </div>
+
+        <div className="login-panel">
+          <p className='panel-tekst'>Registration</p>
+          {error && <p className='panel-error-logged' style={{ color: 'red' }}>{error}</p>}
+          {registered ? (
+            <p className='panel-error-logged' style={{ color: 'green' }}>Rejestracja zakończona sukcesem!</p>
+          ) : (
+            <>
+              <input
+                type="text"
+                placeholder="Username"
+                value={username}
+                            className='panel-email-password'
+                onChange={(e) => setUsername(e.target.value)}
+              />               <br />
+              <input
+                type="email"
+                placeholder="E-mail"
+                value={email}
+                            className='panel-email-password'
+                onChange={(e) => setEmail(e.target.value)}
+
+              />               <br />
+              <input
+                type="password"
+                placeholder="Password"
+                value={haslo}
+                            className='panel-email-password'
+                onChange={(e) => setHaslo(e.target.value)}
+
+              />               <br />
+              <button className='panel-button' onClick={handleRegister} style={{ padding: '10px 20px' }}>Register</button><br />
+
+            </>
+          )}
+             <Link to="/pl/login">
+            <button className='panel-button'>Login</button>
+            </Link>
+        </div>
+
+        <div className="collection-menu">
+        <Link to="/pl/collection" className="collection-menu-item active">KOLEKCJA</Link>
+            <div className="dropdown-container">
+  <button className="collection-menu-item">
+    <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
+  </button>
+  <ul className="dropdown">
+    <li>
+      <Link to="/en/register">
+        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+      </Link>
+      </li>
+  </ul>
+  </div>
+          <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+        </div>
+      </div>
+      <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+      
+    </>
+  );
+};
+
+const Loginen = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+
+  return (
+    <>
+
+      <div className="chief-keef-page">
+        <div className="collection-header">
+          <img src={dope} alt="logo" className="logostrony" />
+          <p className="czas">
+            {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+            {data.getHours()}:{data.getMinutes()}
+          </p>
+          <div className="login-panel">
+        {error && <p className='panel-error-logged' style={{ color: 'red' }}>{error}</p>}
+        {logged ? (
+          <p className='panel-error-logged' style={{ color: 'green' }}>logged in successfully</p>
+        ) : (
+          <>
+                  <p className='panel-tekst'>Login Panel</p>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              className='panel-email-password'
+              onChange={(e) => setEmail(e.target.value)}
+            /><br/>
+            <input
+              type="password"
+              placeholder="Hasło"
+              value={haslo}
+              className='panel-email-password'
+              onChange={(e) => setHaslo(e.target.value)}
+            /><br/>
+            <button className='panel-button' onClick={handleLogin}>Login In</button><br />
+            <Link to="/en/register">
+            <button className='panel-button'>Register</button>
+            </Link>
+          </>
+        )}
+            <br/><Link to="/">
+            <button className='panel-button'>MAIN SITE</button>
+            </Link>
+      </div>
+          <div className="collection-menu">
+            <Link to="/en/collection" className="collection-menu-item active">COLLECTION</Link>
+            <div className="dropdown-container">
+              <button className="collection-menu-item">
+                <img src={usaflag} alt="USA flag" className="flag-icon" /> EN <span className="dropdown-arrow">▼</span>
+              </button>
+              <ul className="dropdown">
+                <li>
+                  <Link to="/pl/login">
+                    <img src={plflag} alt="Poland flag" className="flag-icon" /> PL
+                  </Link>
+                </li>
+              </ul>
+            </div>
+            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
+            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+          </div>
+        </div>
+        {username && (
+        <p className='collection-menu-copyrights'>Witaj, {username}!</p>
+      )}
+        <p className="collection-menu-copyrights">
+          Dopemagazine {data.getFullYear()}®
+        </p>
+        <Link to="/en/privacypolicy">
+          <p className="collection-menu-privacypolicy">PRIVACY POLICY</p>
+        </Link>
+      </div>
+    </>
+  );
+};
+const Loginpl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+
+  return (
+    <>
+
+      <div className="chief-keef-page">
+        <div className="collection-header">
+          <img src={dope} alt="logo" className="logostrony" />
+          <p className="czas">
+            {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+            {data.getHours()}:{data.getMinutes()}
+          </p>
+          <div className="login-panel">
+
+        {error && <p className='panel-error-logged' style={{ color: 'red' }}>{error}</p>}
+        {logged ? (
+          <p className='panel-error-logged' style={{ color: 'green' }}>Zalogowano pomyślnie</p>
+
+        ) : (
+          <>
+                  <p className='panel-tekst'>Panel Logowania</p>
+            <input
+              type="email"
+              placeholder="Email"
+              value={email}
+              className='panel-email-password'
+              onChange={(e) => setEmail(e.target.value)}
+            /><br/>
+            <input
+              type="password"
+              placeholder="Hasło"
+              value={haslo}
+              className='panel-email-password'
+              onChange={(e) => setHaslo(e.target.value)}
+            /><br/>
+            <button className='panel-button' onClick={handleLogin}>Zaloguj się</button><br />
+            <Link to="/en/register">
+            <button className='panel-button'>Rejestracja</button>
+        </Link>
+          </>
+        )}
+                    <br/><Link to="/pl">
+            <button className='panel-button'>Strona główna</button>
+            </Link>
+      </div>
+      <div className="collection-menu">
+            <Link to="/pl/collection" className="collection-menu-item active">KOLEKCJA</Link>
+            <div className="dropdown-container">
+  <button className="collection-menu-item">
+    <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
+  </button>
+  <ul className="dropdown">
+    <li>
+      <Link to="/en/login">
+        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+      </Link>
+      </li>
+  </ul>
+</div>
+            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+          </div>
+        </div>
+        {username && (
+        <p className='collection-menu-copyrights'>Witaj, {username}!</p>
+      )}
+        <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+        <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
+      
+  </div>
+    </>
+  );
+};
 
 const Mainsiteen = () => {
-    const data = new Date();
+
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
+  const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+  
     const [selectedSizes, setSelectedSizes] = useState({});
     const [currentSlide, setCurrentSlide] = useState(0);
   
@@ -1514,6 +1957,10 @@ const Mainsiteen = () => {
               <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
             </div>
           </div>
+          {username && (
+        <p className='collection-menu-welcome'>Welcome, {username}!</p>
+      )}
+          <Link to="/en/login"><p className='collection-menu-login'>LOGIN IN</p></Link>
           <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
           <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
     </div>
@@ -1521,7 +1968,51 @@ const Mainsiteen = () => {
 };
 
 const Mainsitepl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+
   const [selectedSizes, setSelectedSizes] = useState({});
   const [currentSlide, setCurrentSlide] = useState(0);
 
@@ -1581,6 +2072,10 @@ DopeMagazine to coś więcej niż tylko sklep z ciuchami — to historia zakorze
             <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
+        {username && (
+        <p className='collection-menu-welcome'>Witaj, {username}!</p>
+      )}
+        <Link to="/pl/login"><p className='collection-menu-login'>Zaloguj się</p></Link>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
@@ -1588,7 +2083,50 @@ DopeMagazine to coś więcej niż tylko sklep z ciuchami — to historia zakorze
 );
 };
 const Privacypolicyen = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
 
   return (
     <div className="chief-keef-page">
@@ -1708,7 +2246,50 @@ We retain data for the duration necessary to achieve the processing purposes, an
 };
 
 const Privacypolicypl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
 
   return (
     <div className="chief-keef-page">
@@ -1826,7 +2407,50 @@ Dane są przechowywane przez okres niezbędny do realizacji celów, a następnie
 };
 
 const ChiefKeefCollection = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -1897,7 +2521,50 @@ const ChiefKeefCollection = () => {
   );
 };
 const ChiefKeefCollectionpl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -1915,7 +2582,7 @@ const ChiefKeefCollectionpl = () => {
 
         <div className="productschief">
        <div className="products-grid">
-        {productschief.map(product => (
+        {productschiefpl.map(product => (
           <div key={product.id} className="product-card">
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
@@ -1971,7 +2638,50 @@ const ChiefKeefCollectionpl = () => {
 
 
 const Collectionen = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2054,7 +2764,50 @@ const Collectionen = () => {
 };
 
 const Collectionpl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2137,7 +2890,50 @@ const Collectionpl = () => {
 };
 
 const Koszykpl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2189,7 +2985,50 @@ const Koszykpl = () => {
   );
 };
 const Koszyken = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2246,7 +3085,50 @@ const Koszyken = () => {
 /*en*/
 
 const Collectionencaps = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2327,7 +3209,50 @@ const Collectionencaps = () => {
   );
 };
 const Collectionenjackets = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2408,7 +3333,50 @@ const Collectionenjackets = () => {
   );
 };
 const Collectionenhoodies = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2489,7 +3457,50 @@ const Collectionenhoodies = () => {
   );
 };
 const Collectionentshirts = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2570,7 +3581,50 @@ const Collectionentshirts = () => {
   );
 };
 const Collectionentrousers = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2651,7 +3705,50 @@ const Collectionentrousers = () => {
   );
 };
 const Collectionenjeanses = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2732,7 +3829,50 @@ const Collectionenjeanses = () => {
   );
 };
 const Collectionenshorts = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2815,7 +3955,50 @@ const Collectionenshorts = () => {
 
 /*pl*/
 const Collectionplcaps = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2897,7 +4080,50 @@ const Collectionplcaps = () => {
   );
 };
 const Collectionpljackets = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -2979,7 +4205,50 @@ const Collectionpljackets = () => {
   );
 };
 const Collectionplhoodies = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -3061,7 +4330,50 @@ const Collectionplhoodies = () => {
   );
 };
 const Collectionpltshirts = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -3143,7 +4455,50 @@ const Collectionpltshirts = () => {
   );
 };
 const Collectionpltrousers = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -3225,7 +4580,50 @@ const Collectionpltrousers = () => {
   );
 };
 const Collectionpljeanses = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -3307,7 +4705,50 @@ const Collectionpljeanses = () => {
   );
 };
 const Collectionplshorts = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState('');
+
   const data = new Date();
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
   const [selectedSizes, setSelectedSizes] = useState({});
 
   const handleSizeChange = (productId, size) => {
@@ -3400,10 +4841,15 @@ const MainContent = () => {
 };
 
 const App = () => {
+
   return (
     <Router>
       <Routes>
       <Route path="/pl" element={<Mainsitepl />} />
+      <Route path="/en/login" element={<Loginen />} />
+      <Route path="/pl/login" element={<Loginpl />} />
+      <Route path="/en/register" element={<RegisterPanelen />} />
+      <Route path="/pl/register" element={<RegisterPanelpl />} />
         <Route path="/dopemagazinexchiefkeef" element={<ChiefKeefCollection />} />
         <Route path="/pl/dopemagazinexchiefkeef" element={<ChiefKeefCollectionpl />} />
         <Route path="/en/collection" element={<Collectionen />} />
