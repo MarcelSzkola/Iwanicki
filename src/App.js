@@ -4,6 +4,10 @@ import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from './firebase-config'; // Upewnij się, że ścieżka jest poprawna
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import Cookies from 'js-cookie';
+import { getDatabase, push } from 'firebase/database';
+import { onValue, remove } from 'firebase/database';
+import { useNavigate } from 'react-router-dom';
+
 
 
 import { BrowserRouter as Router, Route, Routes, Link, useLocation } from 'react-router-dom';
@@ -1494,7 +1498,7 @@ const RegisterPanelen = () => {
           <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
           <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
           <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-          <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+          <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
         </div>
       </div>
       <p className="collection-menu-copyrights">
@@ -1600,7 +1604,7 @@ const RegisterPanelpl = () => {
           <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
         </div>
       </div>
       <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -1689,8 +1693,19 @@ const Loginen = () => {
             /><br/>
             <button className='panel-button' onClick={handleLogin}>Login In</button><br />
             <Link to="/en/register">
-            <button className='panel-button'>Register</button>
+            <button className='panel-button'>Register</button><br />
             </Link>
+            <button className='panel-button' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Logaut
+          </button>
           </>
         )}
             <br/><Link to="/">
@@ -1714,11 +1729,13 @@ const Loginen = () => {
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         {username && (
-        <p className='collection-menu-copyrights'>Witaj, {username}!</p>
+          <>
+        <span className='collection-menu-welcome'>Witaj, </span> <span className='collection-menu-welcome-active'>{username}</span>
+        </>
       )}
         <p className="collection-menu-copyrights">
           Dopemagazine {data.getFullYear()}®
@@ -1811,8 +1828,19 @@ const Loginpl = () => {
             /><br/>
             <button className='panel-button' onClick={handleLogin}>Zaloguj się</button><br />
             <Link to="/en/register">
-            <button className='panel-button'>Rejestracja</button>
+            <button className='panel-button'>Rejestracja</button><br />
         </Link>
+        <button className='panel-button' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Wyloguj
+          </button>
           </>
         )}
                     <br/><Link to="/pl">
@@ -1836,11 +1864,13 @@ const Loginpl = () => {
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         {username && (
-        <p className='collection-menu-copyrights'>Witaj, {username}!</p>
+          <>
+        <span className='collection-menu-welcome'>Witaj, </span> <span className='collection-menu-welcome-active'>{username}</span>
+        </>
       )}
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
@@ -1954,13 +1984,29 @@ const Mainsiteen = () => {
   <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
               <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
               <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-              <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+              <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
             </div>
           </div>
-          {username && (
-        <p className='collection-menu-welcome'>Welcome, {username}!</p>
-      )}
+          {username ? (
+        <>
+                <span className='collection-menu-welcome'>Welcome, </span> <span className='collection-menu-welcome-active'>{username}</span> 
+        <button className='panel-button-logout' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Logout
+          </button>     
+        </>
+      ) : (
+        <>
           <Link to="/en/login"><p className='collection-menu-login'>LOGIN IN</p></Link>
+        </>
+      )}
           <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
           <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
     </div>
@@ -2049,7 +2095,7 @@ const Mainsitepl = () => {
 DopeMagazine to coś więcej niż tylko sklep z ciuchami — to historia zakorzeniona w betonie miejskich osiedli, rytmie bębnów MPC i duszy ulicznej kultury, która kształtowała całe pokolenia.<br /> Powstaliśmy w latach 90., kiedy hip-hop nie był jeszcze światowym mainstreamem, tylko surowym, autentycznym głosem młodych ludzi z blokowisk. To właśnie wtedy narodziła się nasza misja: tworzyć i promować modę, która niesie za sobą prawdziwy przekaz.<br /> Początki były proste. Garść pomysłów, miłość do kultury i kilka koszulek sprzedawanych z bagażnika starego Golfa. Dziś DopeMagazine to marka z duszą i historią — z własnym stylem, lojalną społecznością i energią, która nie gaśnie od dekad.<br /> Inspirujemy się wszystkim, co szczere i uliczne — od klasycznych beatów z Bronxu, przez skateparki Kalifornii, po warszawskie podwórka i undergroundowe kluby. Nasze kolekcje to połączenie vintage’owego streetwearu, odważnych krojów, wysokiej jakości materiałów i limitowanych dropów, które oddają ducha tamtych czasów, ale są osadzone w dzisiejszym świecie.<br /> W DopeMagazine nie znajdziesz przypadkowych projektów. Każda bluza, każda czapka z daszkiem, każdy detal ma swoje znaczenie. Bo dla nas ciuchy to forma ekspresji — manifest stylu życia, buntu i niezależności.<br /> Jesteśmy tu dla tych, którzy czują klimat — dla fanów klasycznych boombapów, dla młodych wilków z nowej szkoły, dla skejtów, DJ-ów, artystów graffiti i wszystkich, którzy żyją miastem i jego energią. To Ty tworzysz tę kulturę razem z nami.<br /> DopeMagazine to nie moda.<br /> To ruch, rodzina i styl życia.<br /> Z ulicy — dla ulicy. Od 199X.<br /></span>
 </div>     
        <div className="announcement-bar">
-      <span className='announcement-bar-text'>nowość • </span><span id="limited"><Link to="/dopemagazinexchiefkeef" className="collab-link">limitowana edycja</Link></span><span className='announcement-bar-text'> • nowa kolaboracja juz w sprzedaży</span>
+      <span className='announcement-bar-text'>nowość • </span><span id="limited"><Link to="/pl/dopemagazinexchiefkeef" className="collab-link">limitowana edycja</Link></span><span className='announcement-bar-text'> • nowa kolaboracja juz w sprzedaży</span>
     </div>
     <p>&nbsp;</p>
     <div className="collection-menu">
@@ -2069,13 +2115,29 @@ DopeMagazine to coś więcej niż tylko sklep z ciuchami — to historia zakorze
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
-        {username && (
-        <p className='collection-menu-welcome'>Witaj, {username}!</p>
+        {username ? (
+        <>
+                <span className='collection-menu-welcome'>Witaj, </span> <span className='collection-menu-welcome-active'>{username}</span>
+        <button className='panel-button-logout' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Wyloguj
+          </button>  
+        </>
+      ) : (
+        <>
+          <Link to="/pl/login"><p className='collection-menu-login'>Zaloguj Się</p></Link>
+        </>
       )}
-        <Link to="/pl/login"><p className='collection-menu-login'>Zaloguj się</p></Link>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
         <Link to="/pl/privacypolicy"><p className='collection-menu-privacypolicy'>PRYWATNOŚĆ I POLITYKA</p></Link>
       
@@ -2236,7 +2298,7 @@ We retain data for the duration necessary to achieve the processing purposes, an
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
           <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
           <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-          <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+          <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
         </div>
       </div>
       <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2397,7 +2459,7 @@ Dane są przechowywane przez okres niezbędny do realizacji celów, a następnie
             <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">KOLEKCJA CHIEF KEEF</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
       <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2405,6 +2467,299 @@ Dane są przechowywane przez okres niezbędny do realizacji celów, a następnie
   </div>
   );
 };
+const Contactusen = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const data = new Date();
+
+  const handleSubmit = async () => {
+      if (title.trim() === '') {
+        alert('Title cannot be empty');
+        return;
+      }
+      if (description.trim() === '') {
+        alert('Description cannot be empty');
+        return;
+      }
+    try {
+      const db = getDatabase();
+      const newPostRef = push(ref(db, 'posts'));
+      await set(newPostRef, {
+        username,
+        title,
+        description,
+        
+      });
+      alert("Sent!");
+      setTitle('');
+      setDescription('');
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+  
+
+  
+      return (
+        <div className="chief-keef-page">
+          <div className="collection-header">
+                    <img src={dope} alt='logo' className='logostrony'></img>
+          <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
+
+          {username ? (
+        <>
+<p className='collection-menu-item'>Title</p><textarea className="contactus-title" maxlength="200" placeholder="..." onChange={(e) => setTitle(e.target.value)}name='Title' rows="2" cols="100"required></textarea><br />
+<p className='collection-menu-item'>Description</p><textarea className="contactus-title" maxlength="200" placeholder="..." onChange={(e) => setDescription(e.target.value)} name='Description' rows="10" cols="100" required></textarea>
+<br /><button onClick={handleSubmit} className='panel-button'>Send</button><br />
+        </>
+      ) : (
+        <>
+          <p className='panel-tekst'>To be able to contact us please log in</p>
+          <Link to="/en/login">
+            <button className='panel-button'>Login</button><br />
+          </Link>
+        </>
+      )}
+
+
+
+
+
+
+            <div className="collection-menu">
+              <Link to="/en/collection" className="collection-menu-item active">COLLECTION</Link>
+              <div className="dropdown-container">
+    <button className="collection-menu-item">
+      <img src={usaflag} alt="USA flag" className="flag-icon" /> EN <span className="dropdown-arrow">▼</span>
+    </button>
+    <ul className="dropdown">
+      <li>
+        <Link to="/pl/contactus">
+          <img src={plflag} alt="Poland flag" className="flag-icon" /> PL
+        </Link>
+        </li>
+    </ul>
+  </div>
+  <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+              <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
+              <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
+              <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
+            </div>
+          </div>
+                {username ? (
+        <>
+                <span className='collection-menu-welcome'>Welcome, </span> <span className='collection-menu-welcome-active'>{username}</span>
+        <button className='panel-button-logout' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Logout
+          </button>      
+        </>
+      ) : (
+        <>
+        </>
+      )}
+          <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+          <Link to="/en/privacypolicy"><p className='collection-menu-privacypolicy'>PRIVACY POLICY</p></Link>
+    </div>
+  );
+};
+const Contactuspl = () => {
+  const [email, setEmail] = useState('');
+  const [haslo, setHaslo] = useState('');
+  const [error, setError] = useState(null);
+  const [logged, setLogged] = useState(false);
+  const [username, setUsername] = useState(null);
+  const [title, setTitle] = useState('');
+  const [description, setDescription] = useState('');
+  const data = new Date();
+
+  const handleSubmit = async () => {
+    if (title.trim() === '') {
+      alert('Pole tytułu nie może być puste!');
+      return;
+    }
+    if (description.trim() === '') {
+      alert('Pole opisu nie może być puste!');
+      return;
+    }
+    try {
+      const db = getDatabase();
+      const newPostRef = push(ref(db, 'posts'));
+      await set(newPostRef, {
+        username,
+        title,
+        description,
+        
+      });
+      alert("Wysłane!");
+      setTitle('');
+      setDescription('');
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
+
+  // Pobierz username z cookies jeśli istnieje
+  useEffect(() => {
+    const savedUsername = Cookies.get('username');
+    if (savedUsername) {
+      setUsername(savedUsername);
+    }
+  }, []);
+
+  const handleLogin = async () => {
+    setError('');
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, haslo);
+      const user = userCredential.user;
+
+      // Pobierz username z bazy danych
+      const snapshot = await get(ref(database, 'users/' + user.uid));
+      const userData = snapshot.val();
+
+      if (userData && userData.username) {
+        Cookies.set('username', userData.username, { expires: 7 });
+        setUsername(userData.username);
+      }
+    } catch (err) {
+      console.error(err);
+      setError('Nieprawidłowy email lub hasło');
+    }
+    try {
+      await signInWithEmailAndPassword(auth, email, haslo);
+      console.log("Zalogowano pomyślnie!");
+      setLogged(true);
+      setError(null);
+    } catch (err) {
+      console.error("Błąd logowania:", err.message);
+      setError("Incorrect email or password");
+    }
+  };
+  
+
+  
+      return (
+        <div className="chief-keef-page">
+          <div className="collection-header">
+                    <img src={dope} alt='logo' className='logostrony'></img>
+          <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
+
+          {username ? (
+        <>
+<p className='collection-menu-item'>Tytuł</p><textarea className="contactus-title" maxlength="200" placeholder="..." onChange={(e) => setTitle(e.target.value)}name='Title' rows="2" cols="100" required></textarea><br />
+<p className='collection-menu-item'>Opis</p><textarea className="contactus-title" maxlength="200" placeholder="..." onChange={(e) => setDescription(e.target.value)} name='Description' rows="10" cols="100" required></textarea>
+<br /><button onClick={handleSubmit} className='panel-button'>Wyślij</button><br />
+        </>
+      ) : (
+        <>
+          <p className='panel-tekst'>Aby się z nami skontaktować proszę się najpierw zalogować</p>
+          <Link to="/en/login">
+            <button className='panel-button'>Zaloguj się</button><br />
+          </Link>
+        </>
+      )}
+
+
+
+
+
+
+<div className="collection-menu">
+            <Link to="/pl" className="collection-menu-item active">GŁÓWNA STRONA</Link>
+            <div className="dropdown-container">
+  <button className="collection-menu-item">
+    <img src={plflag} alt="Poland flag" className="flag-icon" /> PL <span className="dropdown-arrow">▼</span>
+  </button>
+  <ul className="dropdown">
+    <li>
+      <Link to="/en/contactus">
+        <img src={usaflag} alt="Usa flag" className="flag-icon" /> EN
+      </Link>
+      </li>
+  </ul>
+</div>
+            <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+            <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">KOLEKCJA CHIEF KEEF</Link>
+            <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
+          </div>
+        </div>
+        {username ? (
+        <>
+        <span className='collection-menu-welcome'>Witaj, </span> <span className='collection-menu-welcome-active'>{username}</span>
+        <button className='panel-button-logout' onClick={() => {
+            Cookies.remove('username');
+            setUsername(null);
+            Cookies.remove('email');
+            setEmail(null);
+            Cookies.remove('haslo');
+            setHaslo(null);
+            setLogged(false);
+          }}>
+            Wyloguj się
+          </button>      
+        </>
+      ) : (
+        <>
+        </>
+      )}
+      <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
+      <Link to="/pl/collection"><p className='collection-menu-privacypolicy'>POWRÓT DO KOLEKCJI</p></Link>
+  </div>
+  );
+};
+
 
 const ChiefKeefCollection = () => {
   const [email, setEmail] = useState('');
@@ -2414,6 +2769,32 @@ const ChiefKeefCollection = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -2473,24 +2854,25 @@ const ChiefKeefCollection = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -2511,7 +2893,7 @@ const ChiefKeefCollection = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2528,6 +2910,32 @@ const ChiefKeefCollectionpl = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -2587,22 +2995,25 @@ const ChiefKeefCollectionpl = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -2625,7 +3036,7 @@ const ChiefKeefCollectionpl = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2645,6 +3056,32 @@ const Collectionen = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -2715,22 +3152,24 @@ const Collectionen = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button>
             
           </div>
         ))}
@@ -2753,7 +3192,7 @@ const Collectionen = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2771,7 +3210,32 @@ const Collectionpl = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
 
+  
+    alert('Produkt dodany do koszyka');
+  };
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
     const savedUsername = Cookies.get('username');
@@ -2841,22 +3305,25 @@ const Collectionpl = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -2879,7 +3346,7 @@ const Collectionpl = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2895,6 +3362,35 @@ const Koszykpl = () => {
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(false);
   const [username, setUsername] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const cartRef = ref(database, `carts/${user.uid}`);
+    const unsubscribe = onValue(cartRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const items = Object.entries(data).map(([key, val]) => ({
+          id: key,
+          ...val,
+        }));
+        setCartItems(items);
+      } else {
+        setCartItems([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const removeItem = async (id) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    await remove(ref(database, `carts/${user.uid}/${id}`));
+  };
 
   const data = new Date();
 
@@ -2943,22 +3439,57 @@ const Koszykpl = () => {
     }));
   };
 
-    return (
-      <div className="chief-keef-page">
-        <div className="collection-header">
-                  <img src={dope} alt='logo' className='logostrony'></img>
-        <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-/*miejsce na gowna z koszyka*/
-
-
-
-
-
-
-
-
-/*miejsce na gowna z koszyka*/
-          <div className="collection-menu">
+  return (
+    <div className="chief-keef-page">
+      <div className="collection-header">
+        <img src={dope} alt='logo' className='logostrony' />
+        <p className='czas'>
+          {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+          {data.getHours()}/{data.getMinutes()}
+        </p>
+  
+        <div>
+          {cartItems.length === 0 ? (
+            <p className='collection-menu-item-buycart'>Twój koszyk jest pusty</p>
+          ) : (
+            <>
+              {!username ? (
+                <>
+                  <p className='panel-tekst'>Aby posiadać koszyk musisz być zalogowany</p>
+                  <Link to="/en/login">
+                    <button className='panel-button'>Zaloguj</button><br />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span className='collection-menu-item-buycart'>Koszyk Użytkownika:</span>
+                  <span className='collection-menu-item-buycart2'>{username}</span>
+                  <div className="cart-items-container">
+                    {cartItems.map((item, index) => (
+                      <div key={index} className="cart-item">
+                        <img 
+                          src={item.image} 
+                          alt={item.name} 
+                          className="cart-thumbnail" 
+                        />
+                        <div>
+                          <p className='collection-menu-item-buycart3'>{item.name}</p>
+                          <p className='collection-menu-item-buycart'>ROZMIAR: {item.size}</p>
+                          <p className='collection-menu-item-buycart'>CENA: {item.price} PLN</p>
+                          <button className='delete-button' onClick={() => removeItem(item.id)}>USUŃ</button>
+                          <p>&nbsp;</p>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                </>
+              )}
+            </>
+          )}
+        </div>
+  
+  
+        <div className="collection-menu">
             <Link to="/pl" className="collection-menu-item active">STRONA GŁÓWNA</Link>
             <div className="dropdown-container">
   <button className="collection-menu-item">
@@ -2975,7 +3506,7 @@ const Koszykpl = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -2990,6 +3521,37 @@ const Koszyken = () => {
   const [error, setError] = useState(null);
   const [logged, setLogged] = useState(false);
   const [username, setUsername] = useState('');
+  const [cartItems, setCartItems] = useState([]);
+  const totalPrice = cartItems.reduce((sum, item) => sum + parseFloat(item.price), 0);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    const cartRef = ref(database, `carts/${user.uid}`);
+    const unsubscribe = onValue(cartRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
+        const items = Object.entries(data).map(([key, val]) => ({
+          id: key,
+          ...val,
+        }));
+        setCartItems(items);
+      } else {
+        setCartItems([]);
+      }
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const removeItem = async (id) => {
+    const user = auth.currentUser;
+    if (!user) return;
+
+    await remove(ref(database, `carts/${user.uid}/${id}`));
+  };
 
   const data = new Date();
 
@@ -3038,21 +3600,64 @@ const Koszyken = () => {
     }));
   };
 
-    return (
-      <div className="chief-keef-page">
-        <div className="collection-header">
-                  <img src={dope} alt='logo' className='logostrony'></img>
-        <p className='czas'>{data.getFullYear()}/{data.getMonth()+1}/{data.getDate()}&nbsp;&nbsp;{data.getHours()}/{data.getMinutes()}</p>
-        /*miejsce na gowna z koszyka*/
-
-
-
-
-
-
-
-
-/*miejsce na gowna z koszyka*/
+  return (
+    <div className="chief-keef-page">
+      <div className="collection-header">
+        <img src={dope} alt='logo' className='logostrony' />
+        <p className='czas'>
+          {data.getFullYear()}/{data.getMonth() + 1}/{data.getDate()}&nbsp;&nbsp;
+          {data.getHours()}/{data.getMinutes()}
+        </p>
+  
+        <div>
+          {cartItems.length === 0 ? (
+            <p className='collection-menu-item-buycart'>Your buycart is empty.</p>
+          ) : (
+            <>
+              {!username ? (
+                <>
+                  <p className='panel-tekst'>To have your buycart u must be logged</p>
+                  <Link to="/en/login">
+                    <button className='panel-button'>Login</button><br />
+                  </Link>
+                </>
+              ) : (
+                <>
+                  <span className='collection-menu-item-buycart'>Buycart user:</span>
+                  <span className='collection-menu-item-buycart2'>{username}</span>
+                  <div className="cart-items-container">
+                    {cartItems.map((item, index) => (
+                      <div key={index} className="cart-item">
+                        <img 
+                          src={item.image} 
+                          alt={item.name} 
+                          className="cart-thumbnail" 
+                        />
+                        <div>
+                          <p className='collection-menu-item-buycart3'>{item.name}</p>
+                          <p className='collection-menu-item-buycart'>SIZE: {item.size}</p>
+                          <p className='collection-menu-item-buycart'>PRICE: {item.price} PLN</p>
+                          <button className='delete-button' onClick={() => removeItem(item.id)}>DELETE</button>
+                          <p>&nbsp;</p>
+                        </div>
+                        
+                      </div>
+                      
+                    ))}
+<div className="checkout-section">
+  <p className="collection-menu-item-buycart4">Total: {totalPrice.toFixed(2)} PLN</p><br />
+  <button className="panel-button-checkout" onClick={() => navigate('/checkout')}>
+    GO TO CHECKOUT
+  </button>
+</div>
+                  </div>
+                </>
+              )}
+            </>
+      
+          )}
+        </div>
+  
       <div className="collection-menu">
             <Link to="/" className="collection-menu-item active">MAIN SITE</Link>
             <div className="dropdown-container">
@@ -3070,7 +3675,7 @@ const Koszyken = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3092,6 +3697,32 @@ const Collectionencaps = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3161,24 +3792,25 @@ const Collectionencaps = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3199,7 +3831,7 @@ const Collectionencaps = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3216,6 +3848,32 @@ const Collectionenjackets = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3285,24 +3943,25 @@ const Collectionenjackets = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3323,7 +3982,7 @@ const Collectionenjackets = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3340,6 +3999,32 @@ const Collectionenhoodies = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3409,24 +4094,25 @@ const Collectionenhoodies = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3447,7 +4133,7 @@ const Collectionenhoodies = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3464,6 +4150,32 @@ const Collectionentshirts = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3533,24 +4245,25 @@ const Collectionentshirts = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3571,7 +4284,7 @@ const Collectionentshirts = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3588,6 +4301,32 @@ const Collectionentrousers = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3657,24 +4396,25 @@ const Collectionentrousers = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3695,7 +4435,7 @@ const Collectionentrousers = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3712,6 +4452,32 @@ const Collectionenjeanses = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3781,24 +4547,25 @@ const Collectionenjeanses = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3819,7 +4586,7 @@ const Collectionenjeanses = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3836,6 +4603,32 @@ const Collectionenshorts = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('U must be logged in.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Choose a size before u add to cart.');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Product addded to cart');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -3905,24 +4698,25 @@ const Collectionenshorts = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">ADD TO CART</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">CHOOSE SIZE</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
-            
-          </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">CHOOSE SIZE</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+  ADD TO CART
+</button></div>
         ))}
       </div>
       </div>
@@ -3943,7 +4737,7 @@ const Collectionenshorts = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/en/buycart" className="collection-menu-item">BUY CART</Link>
-            <Link to="/collection" className="collection-menu-item">CONTACT US</Link>
+            <Link to="/en/contactus" className="collection-menu-item">CONTACT US</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -3962,6 +4756,32 @@ const Collectionplcaps = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4032,22 +4852,25 @@ const Collectionplcaps = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4070,7 +4893,7 @@ const Collectionplcaps = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4087,6 +4910,32 @@ const Collectionpljackets = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4157,22 +5006,25 @@ const Collectionpljackets = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4195,7 +5047,7 @@ const Collectionpljackets = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4212,6 +5064,32 @@ const Collectionplhoodies = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4282,22 +5160,25 @@ const Collectionplhoodies = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4320,7 +5201,7 @@ const Collectionplhoodies = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4337,6 +5218,32 @@ const Collectionpltshirts = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4407,22 +5314,25 @@ const Collectionpltshirts = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4445,7 +5355,7 @@ const Collectionpltshirts = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4462,6 +5372,32 @@ const Collectionpltrousers = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4532,22 +5468,25 @@ const Collectionpltrousers = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4570,7 +5509,7 @@ const Collectionpltrousers = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4587,6 +5526,32 @@ const Collectionpljeanses = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4657,22 +5622,25 @@ const Collectionpljeanses = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4695,7 +5663,7 @@ const Collectionpljeanses = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4712,6 +5680,32 @@ const Collectionplshorts = () => {
   const [username, setUsername] = useState('');
 
   const data = new Date();
+  
+  const addToCart = async (product) => {
+    const user = auth.currentUser;
+    if (!user) {
+      alert('Musisz byc zalogowany.');
+      return;
+    }
+  
+    const selectedSize = selectedSizes[product.id];
+    if (!selectedSize) {
+      alert('Wybierz rozmiar przed dodaniem do koszyka');
+      return;
+    }
+  
+    const cartRef = ref(database, `carts/${user.uid}`);
+await push(cartRef, {
+  name: product.name,
+  price: product.price,
+  size: selectedSize,
+  productId: product.id,
+  image: product.img, // ← dodaj to pole
+});
+
+  
+    alert('Produkt dodany do koszyka');
+  };
 
   // Pobierz username z cookies jeśli istnieje
   useEffect(() => {
@@ -4782,22 +5776,25 @@ const Collectionplshorts = () => {
             <div className="product-image-placeholder"><img id="chiefkeefclothes" src={product.img}></img></div>
             <h3>{product.name}</h3>
             <p className="product-description">{product.description}</p>
-            <p className="product-price">{product.price}</p>
-            <button className="add-to-cart">DODAJ DO KOSZYKA</button>
+            <p className="product-price">{product.price}pln</p>
+            
             {/* Selektor rozmiaru */}
             <div className="size-selector">
-              <select 
-                id={`size-${product.id}`}
-                value={selectedSizes[product.id] || ''}
-                onChange={(e) => handleSizeChange(product.id, e.target.value)}
-              >
-                
-                <option value="">WYBIERZ ROZMIAR</option>
-                {sizes.map(size => (
-                  <option key={size} value={size}>{size}</option>
-                ))}
-              </select>
-            </div>
+  <select
+    id={`size-${product.id}`}
+    value={selectedSizes[product.id] || ''}
+    onChange={(e) => handleSizeChange(product.id, e.target.value)}
+  >
+    <option value="">Wybierz rozmiar</option>
+    {sizes.map((size) => (
+      <option key={size} value={size}>{size}</option>
+    ))}
+  </select>
+</div>
+
+<button onClick={() => addToCart(product)} className="add-to-cart">
+ Dodaj do koszyka
+</button>
             
           </div>
         ))}
@@ -4820,7 +5817,7 @@ const Collectionplshorts = () => {
 <span className="menu-separator">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
             <Link to="/pl/dopemagazinexchiefkeef" className="collection-menu-item active">CHIEF KEEF X DOPEMAGAZINE</Link>
             <Link to="/pl/buycart" className="collection-menu-item">KOSZYK</Link>
-            <Link to="/collection" className="collection-menu-item">KONTAKT DO NAS</Link>
+            <Link to="/pl/contactus" className="collection-menu-item">KONTAKT DO NAS</Link>
           </div>
         </div>
         <p className='collection-menu-copyrights'>Dopemagazine {data.getFullYear()}®</p>
@@ -4850,6 +5847,8 @@ const App = () => {
       <Route path="/pl/login" element={<Loginpl />} />
       <Route path="/en/register" element={<RegisterPanelen />} />
       <Route path="/pl/register" element={<RegisterPanelpl />} />
+      <Route path="/en/contactus" element={<Contactusen />} />
+      <Route path="/pl/contactus" element={<Contactuspl />} />
         <Route path="/dopemagazinexchiefkeef" element={<ChiefKeefCollection />} />
         <Route path="/pl/dopemagazinexchiefkeef" element={<ChiefKeefCollectionpl />} />
         <Route path="/en/collection" element={<Collectionen />} />
